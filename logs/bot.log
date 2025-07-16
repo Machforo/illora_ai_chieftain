@@ -1,0 +1,324 @@
+2025-07-15 02:22:08,135 | VectorStoreService | ERROR | Error creating vector store: No columns to parse from file
+2025-07-15 02:22:08,136 | QAAgent | ERROR | Error initializing QA agent: No columns to parse from file
+2025-07-15 02:23:00,649 | VectorStoreService | ERROR | Error creating vector store: Error tokenizing data. C error: Expected 2 fields in line 3, saw 3
+
+2025-07-15 02:23:00,649 | QAAgent | ERROR | Error initializing QA agent: Error tokenizing data. C error: Expected 2 fields in line 3, saw 3
+
+2025-07-15 02:24:16,826 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 02:24:16,826 | VectorStoreService | ERROR | Error creating vector store: type object 'Config' has no attribute 'OPENAI_API_KEY'
+2025-07-15 02:24:16,827 | QAAgent | ERROR | Error initializing QA agent: type object 'Config' has no attribute 'OPENAI_API_KEY'
+2025-07-15 15:14:13,073 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 15:14:13,073 | VectorStoreService | ERROR | Error creating vector store: type object 'Config' has no attribute 'OPENAI_API_KEY'
+2025-07-15 15:14:13,073 | QAAgent | ERROR | Error initializing QA agent: type object 'Config' has no attribute 'OPENAI_API_KEY'
+2025-07-15 15:20:39,920 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 15:20:41,466 | VectorStoreService | ERROR | Error creating vector store: Could not import tiktoken python package. This is needed in order to for OpenAIEmbeddings. Please install it with `pip install tiktoken`.
+2025-07-15 15:20:41,466 | QAAgent | ERROR | Error initializing QA agent: Could not import tiktoken python package. This is needed in order to for OpenAIEmbeddings. Please install it with `pip install tiktoken`.
+2025-07-15 15:21:38,342 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 15:21:49,329 | VectorStoreService | ERROR | Error creating vector store: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-15 15:21:49,329 | QAAgent | ERROR | Error initializing QA agent: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-15 15:27:41,307 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 15:27:46,923 | VectorStoreService | ERROR | Error creating vector store: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-15 15:27:46,924 | QAAgent | ERROR | Error initializing QA agent: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-15 15:29:02,812 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 15:29:09,068 | VectorStoreService | ERROR | Error creating vector store: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-15 15:29:09,068 | QAAgent | ERROR | Error initializing QA agent: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-07-15 15:32:21,021 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 15:33:02,336 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 15:33:03,241 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 15:33:26,303 | QAAgent | INFO | Processed query: What are the check-in and check-out times?
+2025-07-15 15:33:33,988 | QAAgent | INFO | Processed query: great
+2025-07-15 15:33:41,687 | QAAgent | INFO | Processed query: no thanks
+2025-07-15 15:53:22,102 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 15:53:30,514 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 15:53:31,639 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 15:54:00,230 | QAAgent | INFO | Processed query: When is this hotel closing?
+2025-07-15 15:54:19,792 | QAAgent | INFO | Processed query: Yes what are hotels operating hours?
+2025-07-15 15:54:46,116 | QAAgent | INFO | Processed query: What is the check-in and check out time for the hotel?
+2025-07-15 15:55:02,102 | QAAgent | INFO | Processed query: let me know all the details you know about the hotel in brief
+2025-07-15 16:04:28,827 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:04:36,406 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:04:37,397 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:05:16,419 | QAAgent | INFO | Processed query: Hii
+2025-07-15 16:06:20,937 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:06:29,308 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:06:30,543 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:07:58,445 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:08:06,982 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:08:08,127 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:08:22,684 | QAAgent | INFO | Processed query: heyy how re u
+2025-07-15 16:31:52,369 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:32:04,599 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:32:05,783 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:32:53,860 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:33:03,285 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:33:04,061 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:41:47,740 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:41:54,457 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:41:55,347 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:44:00,770 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:44:04,436 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:44:04,951 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:48:18,844 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:48:26,222 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:48:27,113 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:49:51,165 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:49:59,188 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:49:59,999 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:50:26,796 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:50:34,394 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:50:35,227 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:51:46,416 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:51:53,300 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:51:54,185 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:52:24,876 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:52:28,577 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:52:29,109 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:53:18,296 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:53:25,687 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:53:26,664 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:54:25,376 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:54:33,252 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:54:34,236 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:56:06,243 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:56:15,963 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:56:17,605 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:57:11,384 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:57:18,282 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:57:19,003 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:57:57,968 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:58:05,887 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:58:06,770 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:58:30,934 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:58:34,526 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:58:34,995 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:58:39,306 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:58:43,930 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:58:44,398 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 16:59:46,756 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 16:59:50,445 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 16:59:50,880 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 17:00:26,546 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 17:00:30,766 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 17:00:31,242 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 19:50:31,991 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 19:50:43,512 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 19:50:44,697 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 19:50:45,905 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 19:50:52,113 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 19:50:53,044 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 20:02:24,114 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 20:02:30,410 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 20:02:31,255 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 20:02:32,458 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 20:02:38,595 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 20:02:39,483 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 20:15:51,528 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 20:16:01,083 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 20:16:02,719 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 20:17:19,931 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 20:17:27,491 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 20:17:28,580 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 20:18:40,120 | QAAgent | INFO | Processed query: Hii
+2025-07-15 20:19:10,107 | QAAgent | INFO | Processed query: What are the information you have about the hotel?
+2025-07-15 20:19:19,087 | QAAgent | INFO | Processed query: Okay great
+2025-07-15 20:19:30,849 | QAAgent | INFO | Processed query: No thanks
+2025-07-15 20:24:26,802 | QAAgent | INFO | Processed query: Hi
+2025-07-15 20:25:09,020 | QAAgent | INFO | Processed query: Check in timings
+2025-07-15 20:25:23,420 | QAAgent | INFO | Processed query: Check out
+2025-07-15 20:25:35,276 | QAAgent | INFO | Processed query: How's the booking price
+2025-07-15 21:06:51,474 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 21:07:01,871 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 21:07:03,389 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 21:07:09,004 | QAAgent | INFO | Processed query: Hii
+2025-07-15 21:09:57,160 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 21:10:05,574 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 21:10:06,461 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 21:10:22,887 | QAAgent | INFO | Processed query: Hello
+2025-07-15 21:10:38,845 | QAAgent | INFO | Processed query: Yes can you let me know the details of the hotel?
+2025-07-15 21:11:14,856 | QAAgent | INFO | Processed query: what is the pricing structure of your hotel?
+2025-07-15 21:11:23,319 | QAAgent | INFO | Processed query: okay 
+2025-07-15 21:11:38,823 | QAAgent | INFO | Processed query: tell me something about the pool rea
+2025-07-15 21:11:52,817 | QAAgent | INFO | Processed query: is there any spa in your hotel
+2025-07-15 21:11:55,573 | QAAgent | INFO | Processed query: okay
+2025-07-15 21:13:44,315 | QAAgent | INFO | Processed query: let me some good points for your hotel
+2025-07-15 21:13:56,388 | QAAgent | INFO | Processed query: great
+2025-07-15 21:14:32,529 | QAAgent | INFO | Processed query: lets move furhter
+2025-07-15 21:14:57,148 | QAAgent | INFO | Processed query: I want you to tell me about something unique about your hotel
+2025-07-15 21:16:23,337 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 21:16:50,991 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 21:16:52,274 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 21:16:53,834 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 21:17:02,050 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 21:17:03,603 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 21:17:47,324 | QAAgent | INFO | Processed query: Hii
+2025-07-15 21:18:04,784 | QAAgent | INFO | Processed query: I want to know details about your hotel?
+2025-07-15 21:18:22,704 | QAAgent | INFO | Processed query: Can you let me know something very special about your hotel?
+2025-07-15 21:18:38,343 | QAAgent | INFO | Processed query: Why should I be at your hotel?
+2025-07-15 21:18:50,559 | QAAgent | INFO | Processed query: Great
+2025-07-15 21:19:17,938 | QAAgent | INFO | Processed query: Can you let me know how can I access the booking service of hotel
+2025-07-15 21:19:39,246 | QAAgent | INFO | Processed query: Okay thanks for the help...i will book the hotel
+2025-07-15 21:19:55,395 | QAAgent | INFO | Processed query: Thank you for the same
+2025-07-15 21:20:03,144 | QAAgent | INFO | Processed query: No thanks
+2025-07-15 23:04:04,870 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:04:13,813 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:04:16,308 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 23:04:36,986 | QAAgent | INFO | Processed query: hii
+2025-07-15 23:35:41,110 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:35:55,231 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:35:57,770 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 23:36:31,628 | QAAgent | INFO | Processed query: Hii
+2025-07-15 23:36:47,101 | QAAgent | INFO | Processed query: What is the check in and check out  time of the hotel
+2025-07-15 23:37:11,411 | QAAgent | INFO | Processed query: Give me a detailed description about the hotel
+2025-07-15 23:37:41,363 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:37:49,192 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:37:50,300 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 23:38:10,988 | QAAgent | INFO | Processed query: Heyy !! Can you brief me about the pool area of the hotel
+2025-07-15 23:39:01,549 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:39:08,567 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:39:09,898 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 23:39:11,290 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:39:18,394 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:39:19,438 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 23:39:35,129 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:39:41,935 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:39:42,970 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 23:39:44,295 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:39:52,218 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:39:53,379 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 23:41:04,006 | QAAgent | INFO | Processed query: Hii
+2025-07-15 23:41:43,775 | QAAgent | INFO | Processed query: Can you just give mea brief about the hotel
+2025-07-15 23:44:45,642 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:44:52,426 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:44:53,770 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 23:44:56,906 | QAAgent | INFO | Processed query: Hii 
+2025-07-15 23:45:07,454 | QAAgent | INFO | Processed query: Can you give me details of the hotel
+2025-07-15 23:45:29,167 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:45:36,763 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:45:38,220 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 23:45:57,675 | QAAgent | INFO | Processed query: Hii can you give me details about the pool area at the hotel
+2025-07-15 23:46:44,292 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:46:51,566 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:46:52,933 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 23:46:54,203 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:47:02,693 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:47:03,828 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-15 23:48:03,045 | QAAgent | INFO | Processed query: hello how are you
+2025-07-15 23:48:37,853 | QAAgent | INFO | Processed query: can you jsut let me know the details of the hotel
+2025-07-15 23:49:37,642 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-15 23:49:47,105 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-15 23:49:49,062 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 22:45:36,121 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 22:45:47,553 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-16 22:45:48,904 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 22:50:57,520 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 22:51:05,306 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-16 22:51:06,743 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 22:55:22,641 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 22:55:31,827 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-16 22:55:32,850 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 22:56:20,301 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 22:56:29,350 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-16 22:56:30,679 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 22:58:53,364 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 22:59:01,247 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-16 22:59:02,757 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 23:04:40,150 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 23:04:48,233 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-16 23:04:49,213 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 23:11:39,823 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 23:11:47,970 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-16 23:11:49,671 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 23:14:43,929 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 23:16:48,780 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 23:16:56,430 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-16 23:16:57,878 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 23:17:18,363 | QAAgent | INFO | Processed query: hii
+2025-07-16 23:20:31,561 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 23:20:40,437 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-16 23:20:41,969 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 23:21:00,293 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 23:21:04,006 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-16 23:21:04,748 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 23:23:10,918 | VectorStoreService | INFO | Loaded 5 documents from data/hotel_faq.csv
+2025-07-16 23:23:15,340 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-16 23:23:16,052 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-16 23:23:23,502 | QAAgent | INFO | Processed query: hello how r u
+2025-07-16 23:23:43,315 | QAAgent | INFO | Processed query: ok so let me know the details about
+2025-07-16 23:24:05,651 | QAAgent | INFO | Processed query: ok so let me know about the information about the hotel
+2025-07-17 00:12:42,430 | VectorStoreService | ERROR | Error creating vector store: Error tokenizing data. C error: Expected 2 fields in line 7, saw 5
+
+2025-07-17 00:12:42,431 | QAAgent | ERROR | Error initializing QA agent: Error tokenizing data. C error: Expected 2 fields in line 7, saw 5
+
+2025-07-17 00:15:16,030 | VectorStoreService | ERROR | Error creating vector store: Error tokenizing data. C error: Expected 2 fields in line 7, saw 4
+
+2025-07-17 00:15:16,030 | QAAgent | ERROR | Error initializing QA agent: Error tokenizing data. C error: Expected 2 fields in line 7, saw 4
+
+2025-07-17 00:15:35,874 | VectorStoreService | ERROR | Error creating vector store: Error tokenizing data. C error: Expected 2 fields in line 7, saw 4
+
+2025-07-17 00:15:35,874 | QAAgent | ERROR | Error initializing QA agent: Error tokenizing data. C error: Expected 2 fields in line 7, saw 4
+
+2025-07-17 00:16:05,549 | VectorStoreService | ERROR | Error creating vector store: Error tokenizing data. C error: Expected 2 fields in line 10, saw 3
+
+2025-07-17 00:16:05,549 | QAAgent | ERROR | Error initializing QA agent: Error tokenizing data. C error: Expected 2 fields in line 10, saw 3
+
+2025-07-17 00:16:19,757 | VectorStoreService | ERROR | Error creating vector store: Error tokenizing data. C error: Expected 2 fields in line 12, saw 4
+
+2025-07-17 00:16:19,757 | QAAgent | ERROR | Error initializing QA agent: Error tokenizing data. C error: Expected 2 fields in line 12, saw 4
+
+2025-07-17 00:17:02,935 | VectorStoreService | ERROR | Error creating vector store: Error tokenizing data. C error: Expected 2 fields in line 14, saw 3
+
+2025-07-17 00:17:02,936 | QAAgent | ERROR | Error initializing QA agent: Error tokenizing data. C error: Expected 2 fields in line 14, saw 3
+
+2025-07-17 00:17:16,407 | VectorStoreService | INFO | Loaded 20 documents from data/hotel_faq.csv
+2025-07-17 00:17:28,320 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-17 00:17:29,921 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-17 00:17:38,721 | QAAgent | INFO | Processed query: helloo
+2025-07-17 00:18:26,795 | VectorStoreService | INFO | Loaded 20 documents from data/hotel_faq.csv
+2025-07-17 00:18:30,777 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-17 00:18:31,662 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-17 00:18:36,161 | QAAgent | INFO | Processed query: hello
+2025-07-17 00:21:12,649 | VectorStoreService | INFO | Loaded 20 documents from data/hotel_faq.csv
+2025-07-17 00:21:17,789 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-17 00:21:18,671 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-17 00:21:23,883 | QAAgent | INFO | Processed query: hello
+2025-07-17 00:23:39,138 | VectorStoreService | INFO | Loaded 20 documents from data/hotel_faq.csv
+2025-07-17 00:23:44,345 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-17 00:23:45,151 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-17 00:24:15,934 | QAAgent | INFO | Processed query: hii
+2025-07-17 00:25:31,391 | VectorStoreService | INFO | Loaded 20 documents from data/hotel_faq.csv
+2025-07-17 00:25:35,504 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-17 00:25:36,351 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-17 00:25:40,931 | QAAgent | INFO | Processed query: hello
+2025-07-17 00:26:54,625 | VectorStoreService | INFO | Loaded 20 documents from data/hotel_faq.csv
+2025-07-17 00:26:59,018 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-17 00:26:59,804 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-17 00:27:05,471 | QAAgent | INFO | Processed query: hellloo
+2025-07-17 00:27:05,471 | web | INFO | [Web] Session: 0c6cb178-00a7-48e4-9ecd-38031bf94bbd | User: 'hellloo' | Bot: 'Hello! Is there anything I can help you with or would you like to know more about our hotel services?' | Intent: greet
+2025-07-17 00:27:27,638 | QAAgent | INFO | Processed query: I want to know more about the hotel services
+2025-07-17 00:27:27,639 | web | INFO | [Web] Session: 0c6cb178-00a7-48e4-9ecd-38031bf94bbd | User: 'I want to know more about the hotel services' | Bot: 'We have a variety of services to make your stay comfortable. 
+
+As I mentioned earlier, we offer 24/7 room service, so you can enjoy your meals at any time of the day or night.
+
+We also have complimentary high-speed Wi-Fi available throughout the hotel, so you can stay connected and productive during your stay.
+
+However, I don't have information on other specific services such as fitness center, spa, or dining options. If you're interested in learning more, I recommend contacting the hotel directly for more information.' | Intent: greet
+2025-07-17 00:28:08,452 | QAAgent | INFO | Processed query: okay can you provide me with the pricing plan
+2025-07-17 00:28:41,628 | VectorStoreService | INFO | Loaded 20 documents from data/hotel_faq.csv
+2025-07-17 00:28:49,282 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-17 00:28:51,239 | QAAgent | INFO | Groq-based QA agent initialized successfully.
+2025-07-17 00:29:13,165 | QAAgent | INFO | Processed query: Can you let me know about what kind of rooms do you have
+2025-07-17 00:29:13,166 | web | INFO | Web | 8671c8ae-121b-47aa-a4df-d7063e1aab6f | Can you let me know about what kind of rooms do you have | We have several types of rooms available. These include:
+
+1. Deluxe Rooms
+2. Executive Suites
+3. Family Rooms
+4. Presidential Suites
+
+We also have accessible rooms available for guests with mobility challenges. | Intent: ask_room_types
+2025-07-17 00:29:41,228 | QAAgent | INFO | Processed query: okay what are the pricing plan
+2025-07-17 00:30:08,828 | QAAgent | INFO | Processed query: I want to book the room how can I do it
+2025-07-17 00:30:08,828 | web | INFO | Web | 8671c8ae-121b-47aa-a4df-d7063e1aab6f | I want to book the room how can I do it | You can book a room via the concierge or by calling extension 101. | Intent: ask_room_pricing
+2025-07-17 00:30:23,370 | QAAgent | INFO | Processed query: what about the room service
+2025-07-17 00:30:23,370 | web | INFO | Web | 8671c8ae-121b-47aa-a4df-d7063e1aab6f | what about the room service | You can order room service 24/7. | Intent: ask_room_pricing
+2025-07-17 00:30:35,719 | QAAgent | INFO | Processed query: is there a pool in the hotel?
+2025-07-17 00:30:35,719 | web | INFO | Web | 8671c8ae-121b-47aa-a4df-d7063e1aab6f | is there a pool in the hotel? | Yes, there is a pool in the hotel. It's open from 6 AM to 10 PM daily. | Intent: greet

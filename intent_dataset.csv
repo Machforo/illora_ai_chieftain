@@ -1,0 +1,48 @@
+question,intent
+hello,greet
+hi,greet
+hey there,greet
+good morning,greet
+good evening,greet
+is anyone there?,greet
+bye,goodbye
+goodbye,goodbye
+see you later,goodbye
+take care,goodbye
+catch you later,goodbye
+What are the check-in and check-out timings?,ask_checkin_checkout
+When can I check in?,ask_checkin_checkout
+What time is check-out?,ask_checkin_checkout
+What types of rooms do you have?,ask_room_types
+Tell me about the rooms.,ask_room_types
+Are suites available?,ask_room_types
+Are there rooms available?,ask_room_availability
+Can I book a room today?,ask_room_availability
+Is there any vacancy?,ask_room_availability
+How much does a room cost?,ask_room_pricing
+What are the room charges?,ask_room_pricing
+Tell me the pricing plans.,ask_room_pricing
+What facilities do you offer?,ask_amenities
+Do you have a gym?,ask_amenities
+Is there a swimming pool?,ask_amenities
+What free services do you offer?,ask_free_services
+Is breakfast included?,ask_free_services
+Do I get free Wi-Fi?,ask_free_services
+How can I contact the reception?,ask_contact
+I need the concierge number.,ask_contact
+Give me the front desk contact.,ask_contact
+Do you serve food?,ask_food
+Is vegetarian food available?,ask_food
+What's on the menu?,ask_food
+Do you accept credit cards?,ask_payment_methods
+Can I pay via UPI?,ask_payment_methods
+What payment options are there?,ask_payment_methods
+I want to book a spa,ask_spa_booking
+How can I schedule a massage?,ask_spa_booking
+Can I get a spa appointment?,ask_spa_booking
+Is Wi-Fi free?,ask_wifi
+Do you provide internet?,ask_wifi
+What's the Wi-Fi password?,ask_wifi
+Tell me a joke,out_of_scope
+What is the meaning of life?,out_of_scope
+Who won the match yesterday?,out_of_scope

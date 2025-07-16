@@ -1,0 +1,104 @@
+version: "2.0"
+nlu:
+# 1. Greeting Intent
+- intent: greet
+  examples: |
+    - hello
+    - hi
+    - hey there
+    - good morning
+    - good evening
+    - is anyone there?
+
+# 2. Goodbye Intent
+- intent: goodbye
+  examples: |
+    - bye
+    - goodbye
+    - see you later
+    - take care
+    - catch you later
+
+# 3. Ask Check-in and Check-out Timing
+- intent: ask_checkin_checkout
+  examples: |
+    - What are the check-in and check-out timings?
+    - When can I check in?
+    - What time is check-out?
+
+# 4. Ask Room Types
+- intent: ask_room_types
+  examples: |
+    - What types of rooms do you have?
+    - Tell me about the rooms.
+    - Are suites available?
+
+# 5. Ask Room Availability
+- intent: ask_room_availability
+  examples: |
+    - Are there rooms available?
+    - Can I book a room today?
+    - Is there any vacancy?
+
+# 6. Ask for Pricing
+- intent: ask_room_pricing
+  examples: |
+    - How much does a room cost?
+    - What are the room charges?
+    - Tell me the pricing plans.
+
+# 7. Ask Amenities
+- intent: ask_amenities
+  examples: |
+    - What facilities do you offer?
+    - Do you have a gym?
+    - Is there a swimming pool?
+
+# 8. Ask Free Services
+- intent: ask_free_services
+  examples: |
+    - What free services do you offer?
+    - Is breakfast included?
+    - Do I get free Wi-Fi?
+
+# 9. Ask Contact Info
+- intent: ask_contact
+  examples: |
+    - How can I contact the reception?
+    - I need the concierge number.
+    - Give me the front desk contact.
+
+# 10. Ask Food Options
+- intent: ask_food
+  examples: |
+    - Do you serve food?
+    - Is vegetarian food available?
+    - What's on the menu?
+
+# 11. Ask Payment Methods
+- intent: ask_payment_methods
+  examples: |
+    - Do you accept credit cards?
+    - Can I pay via UPI?
+    - What payment options are there?
+
+# 12. Ask Booking Spa
+- intent: ask_spa_booking
+  examples: |
+    - I want to book a spa
+    - How can I schedule a massage?
+    - Can I get a spa appointment?
+
+# 13. Ask Wi-Fi
+- intent: ask_wifi
+  examples: |
+    - Is Wi-Fi free?
+    - Do you provide internet?
+    - What's the Wi-Fi password?
+
+# 14. Fallback / Unknown
+- intent: out_of_scope
+  examples: |
+    - Tell me a joke
+    - What is the meaning of life?
+    - Who won the match yesterday?
