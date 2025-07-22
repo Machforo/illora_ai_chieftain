@@ -18,3 +18,5 @@ rasa
 pyyaml
 numpy
 scikit-learn
+stripe
+fastapi

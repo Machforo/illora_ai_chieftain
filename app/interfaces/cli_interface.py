@@ -1,7 +1,9 @@
 from app.agents.qa_agent import ConciergeBot
 
+
+# function to make the agent run on the terminal
 def run_cli():
-    print("🛎️  Welcome to AI Chieftain – Hotel Concierge Bot")
+    print(" Welcome to LUXORIA SUITES. How can I assist you?")
     print("Type 'exit' to quit.\n")
 
     bot = ConciergeBot()

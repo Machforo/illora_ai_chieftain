@@ -34,8 +34,9 @@ df = pd.read_csv("intent_dataset.csv")
 X_train, X_test, y_train, y_test = train_test_split(df["question"], df["intent"], test_size=0.2, random_state=42)
 
 # Build pipeline
+# Tfidf : converts raw text to TF-IDF vectors  --> Feature Extraction
 pipeline = Pipeline([
-    ('tfidf', TfidfVectorizer()),
+    ('tfidf', TfidfVectorizer()),   
     ('clf', LogisticRegression())
 ])
 
@@ -59,7 +60,7 @@ import joblib
 pipeline = joblib.load("intent_classifier_model.pkl")
 
 # Example query
-query = "Hello"
+query = "payment"
 intent = pipeline.predict([query])[0]
 
 print(f"Predicted Intent: {intent}")

@@ -1,8 +1,9 @@
 import logging
 import os
 
-LOG_PATH_TXT = os.path.join("logs", "bot.log")
+LOG_PATH_TXT = 'C:\\Users\\Atharv\\Documents\\AI_chieftain_bot_AtharvKumar\\logs\\bot.log'
 
+#-- function to initialize a logger that writes log to a file
 def setup_logger(name: str, log_file: str = LOG_PATH_TXT, level=logging.INFO):
     os.makedirs(os.path.dirname(log_file), exist_ok=True)
 

@@ -46,3 +46,9 @@ What's the Wi-Fi password?,ask_wifi
 Tell me a joke,out_of_scope
 What is the meaning of life?,out_of_scope
 Who won the match yesterday?,out_of_scope
+I want to make a payment.,payment_request
+How can I pay for the room?,payment_request
+I want to book a room?,payment_request
+Give me the payment link of booking.,payment_request
+How to book the room?,payment_request
+Payment,payment_request

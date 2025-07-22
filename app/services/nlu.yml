@@ -102,3 +102,13 @@ nlu:
     - Tell me a joke
     - What is the meaning of life?
     - Who won the match yesterday?
+
+# 15. Payment Intent
+- intent: payment_request
+  examples: |
+    - I want to make a payment.
+    - How can I pay for the room?
+    - I want to book a room?
+    - Give me the payment link of booking.
+    - How to book the room?
+    - Payment 
