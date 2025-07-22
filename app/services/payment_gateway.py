@@ -3,8 +3,13 @@
 import stripe
 import os
 import dotenv
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
-stripe.api_key = ' sk_test_51RnPPxFW5uUavv3GzCSFHUl9um0CxjU8hAMEKKnBXwTZXuXl681FfmmZx9SQYe3O8uRS41uhIv4n2ygAgnL6fvzZ00TZR5fkR5'
+from app.config import Config
+
+stripe.api_key = Config.STRIPE_SECRET_KEY
 if not stripe.api_key:
     raise Exception(" STRIPE_SECRET_KEY not found")
 

@@ -942,3 +942,8 @@ To check availability, could you please provide me with your preferred dates of 
 2025-07-23 01:29:40,404 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | schedule my wake up call @5 AM in the morning | Yes, please inform the reception to schedule a wake-up call for 5 AM. | Intent: goodbye
 2025-07-23 01:30:03,211 | QAAgent | INFO | Processed query at LUXORIA SUITES: great thank you
 2025-07-23 01:30:03,211 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | great thank you | You're welcome. Is there anything else I can assist you with during your stay at LUXORIA SUITES? | Intent: goodbye
+2025-07-23 02:38:11,146 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 02:38:17,948 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 02:38:19,174 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 02:38:35,253 | QAAgent | INFO | Processed query at LUXORIA SUITES: I want to make the payment.
+2025-07-23 02:38:35,254 | web | INFO | Web | 17da688e-d4b5-428f-bebd-183305feab49 | I want to make the payment. | We accept major credit cards, including Visa, Mastercard, and American Express. You may also opt for cash or bank transfer. Our front desk team will be happy to assist you with the payment process. | Intent: payment_request
