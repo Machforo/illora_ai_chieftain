@@ -911,3 +911,34 @@ Would you like more information on any of these amenities or services?
 2025-07-23 00:28:08,662 | web | INFO | Whatsapp | whatsapp:+919569394675 | Deluxe | Our Deluxe Rooms offer luxurious amenities, including plush bedding, marble bathrooms, and stunning city views. They also come with access to our exclusive lounge, where you can enjoy complimentary refreshments and personalized service.
 2025-07-23 00:28:29,455 | QAAgent | INFO | Processed query at LUXORIA SUITES: Okayyy further give me the payment link
 2025-07-23 00:28:29,456 | web | INFO | Whatsapp | whatsapp:+919569394675 | Okayyy further give me the payment link | I'd be happy to assist you with payment arrangements. However, as a security measure, we prefer to process payments directly through our hotel's secure system. I can provide you with a payment reference number, and you can settle the bill upon check-in or at the front desk. Would you like me to send you the payment reference number?
+2025-07-23 01:23:43,670 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 01:23:53,904 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 01:23:55,491 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 01:24:53,234 | QAAgent | INFO | Processed query at LUXORIA SUITES: Hii
+2025-07-23 01:24:53,235 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | Hii | Welcome to LUXORIA SUITES. How may I assist you today? | Intent: goodbye
+2025-07-23 01:25:28,809 | QAAgent | INFO | Processed query at LUXORIA SUITES: I  am travelling with my family. Do you have any rooms available
+2025-07-23 01:25:28,809 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | I  am travelling with my family. Do you have any rooms available | We have a variety of rooms to accommodate your family, including Deluxe Rooms and Family Rooms. Our Family Rooms offer a spacious layout with separate areas for children, ensuring a comfortable stay for all. Would you like me to check availability and provide more details? | Intent: ask_room_types
+2025-07-23 01:25:59,936 | QAAgent | INFO | Processed query at LUXORIA SUITES: yes check availability and provide more details
+2025-07-23 01:25:59,936 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | yes check availability and provide more details | Welcome to LUXORIA SUITES. I'd be delighted to assist you with your inquiry.
+
+We have a range of luxurious accommodations available, including Deluxe Rooms, Executive Suites, Family Rooms, and Presidential Suites. Our honeymoon suites are particularly popular, offering candlelight dinners and spa treatments.
+
+To check availability, could you please provide me with your preferred dates of stay? | Intent: goodbye
+2025-07-23 01:26:37,087 | QAAgent | INFO | Processed query at LUXORIA SUITES: I will be arriving on 24th July
+2025-07-23 01:26:37,087 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | I will be arriving on 24th July | Welcome to Luxoria Suites. We're delighted to have you with us. Your arrival date is noted as July 24th. We'll ensure a seamless check-in experience. Would you like me to arrange for any special requests or amenities prior to your arrival? | Intent: goodbye
+2025-07-23 01:27:17,907 | QAAgent | INFO | Processed query at LUXORIA SUITES: can you let me know about tany playground for children or children activities
+2025-07-23 01:27:17,907 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | can you let me know about tany playground for children or children activities | We don't have a traditional playground, but we do offer a Family Room category that can accommodate families with children. Additionally, our restaurant has a kids menu with healthy and fun options, and our staff can also arrange for babysitting services upon request. | Intent: goodbye
+2025-07-23 01:27:42,645 | QAAgent | INFO | Processed query at LUXORIA SUITES: do you have pool or gym.
+2025-07-23 01:27:42,646 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | do you have pool or gym. | We have a serene outdoor pool and a fully-equipped fitness center, both available for your exclusive use. | Intent: ask_amenities
+2025-07-23 01:27:59,573 | QAAgent | INFO | Processed query at LUXORIA SUITES: great can you help me book the room for 24th
+2025-07-23 01:27:59,574 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | great can you help me book the room for 24th | I'd be happy to assist you with booking a room for the 24th. What type of accommodation are you interested in, sir/ma'am? We have Deluxe Rooms, Executive Suites, Family Rooms, and Presidential Suites to choose from. | Intent: payment_request
+2025-07-23 01:28:47,288 | QAAgent | INFO | Processed query at LUXORIA SUITES: thank you
+2025-07-23 01:28:47,289 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | thank you | You're welcome. Is there anything else I can assist you with during your stay at LUXORIA SUITES? | Intent: goodbye
+2025-07-23 01:29:09,838 | QAAgent | INFO | Processed query at LUXORIA SUITES: no thank you just provide me the number of the reception
+2025-07-23 01:29:09,839 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | no thank you just provide me the number of the reception | You can reach our reception desk at extension 100. | Intent: ask_contact
+2025-07-23 01:29:23,827 | QAAgent | INFO | Processed query at LUXORIA SUITES: can you give me a wake up call
+2025-07-23 01:29:23,828 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | can you give me a wake up call | Yes, please inform the reception, and we will schedule your wake-up call. | Intent: goodbye
+2025-07-23 01:29:40,404 | QAAgent | INFO | Processed query at LUXORIA SUITES: schedule my wake up call @5 AM in the morning
+2025-07-23 01:29:40,404 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | schedule my wake up call @5 AM in the morning | Yes, please inform the reception to schedule a wake-up call for 5 AM. | Intent: goodbye
+2025-07-23 01:30:03,211 | QAAgent | INFO | Processed query at LUXORIA SUITES: great thank you
+2025-07-23 01:30:03,211 | web | INFO | Web | 82aedc10-704f-4ace-8277-6df19863bd43 | great thank you | You're welcome. Is there anything else I can assist you with during your stay at LUXORIA SUITES? | Intent: goodbye

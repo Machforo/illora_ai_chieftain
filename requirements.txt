@@ -20,3 +20,17 @@ numpy
 scikit-learn
 stripe
 fastapi
+langchain-community
+streamlit
+uuid
+numpy
+pil
+io
+tempfile
+pygame
+subprocess
+request
+joblib
+plotly
+
+

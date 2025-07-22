@@ -4,7 +4,7 @@ import stripe
 import os
 import dotenv
 
-stripe.api_key = 'YOUR_STRIPE_SECRET_KEY'
+stripe.api_key = ' sk_test_51RnPPxFW5uUavv3GzCSFHUl9um0CxjU8hAMEKKnBXwTZXuXl681FfmmZx9SQYe3O8uRS41uhIv4n2ygAgnL6fvzZ00TZR5fkR5'
 if not stripe.api_key:
     raise Exception(" STRIPE_SECRET_KEY not found")
 
