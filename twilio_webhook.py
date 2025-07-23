@@ -7,8 +7,7 @@ from app.services.payment_gateway import create_checkout_session
 from app.logger import log_chat
 from app.services.intent_classifier import classify_intent
 
-app = Flask(__name__)  # ✅ Fixed
-
+app = Flask(__name__)
 bot = ConciergeBot()
 session_data = {}
 
@@ -19,47 +18,68 @@ ROOM_OPTIONS = ["Deluxe", "Executive", "Family"]
 def whatsapp_reply():
     incoming_msg = request.form.get('Body', "").strip()
     user_number = request.form.get('From')
-    print(incoming_msg)
+
     msg = MessagingResponse()
     response = ""
-
+    
     if user_number not in session_data:
-        session_data[user_number] = {"stage": "start"}
+        session_data[user_number] = {"stage": "identify"}
 
     user_session = session_data[user_number]
     stage = user_session["stage"]
-    print(stage)
+    
+    print(f"[Stage: {stage}] Incoming: {incoming_msg}")
 
-    # Step 1: Triggered by payment intent
-    if stage == "start":
-        intent = classify_intent(incoming_msg.lower())
-        if intent == "payment_request":
-            user_session["stage"] = "room"
+    # Step 0: Identify guest or non-guest
+    if stage == "identify":
+        if "guest" in incoming_msg.lower():
+            user_session["user_type"] = "guest"
+            user_session["stage"] = "start"
+            response = "✅ Great! You're marked as a guest of LUXORIA SUITES. How can I assist you today?"
+        elif "non-guest" in incoming_msg.lower() or "visitor" in incoming_msg.lower():
+            user_session["user_type"] = "non-guest"
+            user_session["stage"] = "start"
+            response = "✅ Noted. You're marked as a visitor. Some services are exclusive to our guests. Feel free to ask any questions!"
+        else:
             response = (
-                "🏨 Welcome to *LUXORIA SUITES* – a premium stay experience.\n\n"
+                "👋 Welcome to *LUXORIA SUITES*.\nAre you a *guest* staying with us or a *non-guest* (e.g., restaurant or event visitor)?\n"
+                "Please reply with *guest* or *non-guest* to proceed."
+            )
+        log_chat("WhatsApp", user_number, incoming_msg, response, user_session["user_type"])
+        msg.message(response)
+        return str(msg)
+
+    # Step A: Always first give response from bot
+    user_type = session_data[user_number].get("user_type", "guest")
+    answer = bot.ask(incoming_msg, user_type=user_type)
+    response = f"💬 {answer}"
+
+
+    intent = classify_intent(incoming_msg.lower())
+    if intent == "payment_request" and user_session.get("user_type") == "guest":
+        user_session["stage"] = "room"
+        response += (
+                "\n\n💼 Let's book your stay:\n"
                 "Please choose your room type:\n"
                 "1️⃣ Deluxe Room – ₹4000/night\n"
                 "2️⃣ Executive Room – ₹6000/night\n"
                 "3️⃣ Family Room – ₹8000/night\n\n"
                 "Reply with *1*, *2*, or *3* to proceed."
-            )
-        else:
-            response = bot.ask(incoming_msg)
+                )
 
-    # Step 2: Room type selection
-    elif stage == "room":
+
+    # Step 1: Room type selection
+    if stage == "room":
         if incoming_msg in ["1", "2", "3"]:
             selected_room = ROOM_OPTIONS[int(incoming_msg) - 1]
             user_session["room_type"] = selected_room
             user_session["stage"] = "nights"
             response = (
-                f"🕒 Great choice! How many nights would you like to stay in our *{selected_room} Room*?\n"
-                "Please reply with a number."
+                f"🛏️ Great! How many nights would you like to stay in our *{selected_room} Room*?\n"
+                "Reply with a number."
             )
-        else:
-            response =  bot.ask(incoming_msg)
 
-    # Step 3: Nights input
+    # Step 2: Nights input
     elif stage == "nights":
         if incoming_msg.isdigit() and int(incoming_msg) > 0:
             user_session["nights"] = int(incoming_msg)
@@ -70,10 +90,8 @@ def whatsapp_reply():
                 "2️⃣ Cash on Arrival\n\n"
                 "Reply with *1* or *2*."
             )
-        else:
-            response =  bot.ask(incoming_msg)
 
-    # Step 4: Payment method
+    # Step 3: Payment method
     elif stage == "payment":
         if incoming_msg in ["1", "2"]:
             payment_mode = "Online" if incoming_msg == "1" else "Cash"
@@ -91,12 +109,11 @@ def whatsapp_reply():
                 f"🌙 Nights: *{nights}*\n"
                 f"💰 Payment: *{payment_mode}*\n"
                 f"💵 Total: ₹{price}\n\n"
-                f"✅ Please reply with *Yes* to confirm your booking."
+                "✅ Please reply with *Yes* to confirm your booking."
             )
-        else:
-            response =  bot.ask(incoming_msg)
 
-    # Step 5: Confirmation
+
+    # Step 4: Confirmation
     elif stage == "confirm":
         if incoming_msg.lower() == "yes":
             room = user_session["room_type"]
@@ -113,25 +130,18 @@ def whatsapp_reply():
             if pay_url:
                 response = (
                     f"🎉 *Your booking at LUXORIA SUITES is confirmed!*\n\n"
-                    f"To complete the process, please follow this link:\n{pay_url}"
+                    f"To complete the process, please follow this payment link:\n{pay_url}"
                 )
             else:
-                response = "⚠ Payment link could not be generated. Please try again."
+                response = "⚠ Payment link generation failed. Please try again."
 
-            # Reset session
-            session_data[user_number] = {"stage": "start"}
+            session_data[user_number] = {"stage": "identify"}
         else:
-            response =  bot.ask(incoming_msg)
-    # Fallback for unexpected input
-    else:
-        response = bot.ask(incoming_msg)
-    
-    print(response)
+            response = "❌ Booking not confirmed. Please reply *Yes* to confirm or restart."
 
-    log_chat("Whatsapp", user_number, incoming_msg, response)
+    log_chat("WhatsApp", user_number, incoming_msg, response, user_type)
     msg.message(response)
     return str(msg)
 
-# ✅ Fixed incorrect block
 if __name__ == "__main__":
     app.run(debug=True, port=5002)

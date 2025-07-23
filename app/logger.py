@@ -21,9 +21,11 @@ def setup_logger(name: str, log_file: str = LOG_PATH_TXT, level=logging.INFO):
 
 logger = setup_logger("web")
 
-def log_chat(source: str, session_id: str, user_input: str, response: str, intent: str = None):
-    # Build intent string only if intent is provided
+def log_chat(source: str, session_id: str, user_input: str, response: str, intent: str = None, guest_status: str = None):
+    # Optional parts
     intent_str = f" | Intent: {intent}" if intent else ""
-    
-    message = f"{source} | {session_id} | {user_input} | {response}{intent_str}"
+    guest_str = f" | Guest: {guest_status}" if guest_status else ""
+
+    # Final message
+    message = f"{source} | {session_id} | {user_input} | {response}{intent_str}{guest_str}"
     logger.info(message)

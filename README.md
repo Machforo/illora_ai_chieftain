@@ -1,26 +1,32 @@
-# 🛎️ AI Chieftain – Hotel Concierge Bot
+# 🛎️ AI Chieftain – Concierge Bot for LUXORIA SUITES
 
-**AI Chieftain** is an AI-powered multi-modal concierge bot designed for hotels, offering seamless guest interaction across **Web**, **Voice**, **QR**, and **WhatsApp** channels. It integrates **LLMs**, **LangChain**, **Twilio**, and **Streamlit**, and logs every interaction in a centralized system with an **Admin Dashboard** for insights.
+**AI Chieftain** is an advanced AI concierge assistant designed specifically for **LUXORIA SUITES**, enabling guests and visitors to interact via **Web**, **Voice**, **QR**, and **WhatsApp**. It integrates cutting-edge **LLMs**, **Stripe**, **LangChain**, **Twilio**, and **Streamlit** with features like **room payments**, **chat summaries**, and a complete **property management system (PMS)** backend.
 
 ---
 
-## Demo Video
-**Drive Link**
+## 🎥 Demo Video
+**[Google Drive Demo Link]**
+
+---
 
 ## 🚀 Features
 
--  Web chat interface (Streamlit)
--  LLM via Groq (LLaMA3) with LangChain
--  Voice recognition and response
--  WhatsApp chatbot using Twilio
--  QR code for mobile access to web bot
--  Logging for all channels (web, voice, WhatsApp)
--  Admin dashboard with analytics
--  Optional intent classification using Rasa
+- Web chatbot with voice & QR code access
+- Guest/non-guest user filtering for tailored service
+- LLM-backed chat responses (via Groq + LangChain)
+- Integrated Stripe payment gateway (₹2000 advance/cash mode, full online mode)
+- Auto-generated payment links via WhatsApp
+- Twilio WhatsApp integration
+- Room pricing logic (₹4000–₹8000/night based on type & duration)
+- Chat session summary generation
+- Centralized logging of interactions across all channels
+- Admin dashboard with session analytics and log exports
+- PMS backend & AI assistant for dataset creation
 
 ---
 
 ## 📁 Project Structure
+
 
 ```
 AI_CHIEFTAIN_BOT_ATHARVKUMAR/
@@ -39,13 +45,16 @@ AI_CHIEFTAIN_BOT_ATHARVKUMAR/
 │   │   └── chat_logs.csv              # Centralized chat logs
 │   ├── services/
 │   │   ├── __pycache__/
-│   │   ├── intent_classifier.py       # Basic intent classification (Rasa optional)
+│   │   ├── intent_classifier.py 
+|       ├── payment_gateway.py 
+|       ├── summarizer.py.py           # Basic intent classification 
 │   │   ├── logger.py                  # Logging utilities
-│   │   ├── nlu.yml                    # NLU training data (used by Rasa or stub)
+│   │   ├── nlu.yml                    # NLU training data (used by Rasa or 
 │   │   ├── vector_store.py            # Vector DB (e.g., FAISS) and embeddings
 │   │   └── config.py                  # Configurations and constants
 ├── data/
-│   └── hotel_faq.csv                  # FAQ dataset used for context retrieval
+│   └── hotel_faq.csv     
+|   └── AI_assistant_dataset.py         # FAQ dataset used for context retrieval
 ├── logs/
 │   └── bot.log                        # System and error logs
 ├── .env                               # API keys and environment variables
@@ -62,33 +71,36 @@ AI_CHIEFTAIN_BOT_ATHARVKUMAR/
 
 ---
 
-## 🧩 Tech Stack
 
-| Area               | Tool/Library                                |
-|--------------------|---------------------------------------------|
-| LLM Engine         | Groq (LLaMA 3) via LangChain                 |
-| Vector DB          | FAISS                                       |
-| Embeddings         | HuggingFace Transformers                    |
-| Web UI             | Streamlit                                   |
-| Voice              | speech_recognition + PyAudio + gTTS         |
-| QR Code            | qrcode + Pillow                             |
-| Messaging          | Twilio + WhatsApp Sandbox                   |
-| Analytics          | Streamlit Charts                            |
-| Intent Classifier  | Rasa NLU (optional)                         |
+---
+
+## 🧠 AI Capabilities
+
+| Feature              | Description                                                  |
+|----------------------|--------------------------------------------------------------|
+| LLM Concierge        | Hotel-specific intelligent responses (Groq + LangChain)      |
+| Guest Filtering      | Tailors services to guests vs non-guests                     |
+| Payment Generation   | Detects payment intent & sends Stripe link automatically     |
+| Voice Chat           | Web mic integration (speech-to-text + TTS)                   |
+| Chat Summarizer      | Generates text summary of session interactions               |
+| PMS Add-on           | Backend-ready for booking & visitor management               |
+| Dataset AI Agent     | Helps hotel staff generate high-quality Q&A pairs            |
 
 ---
 
 ## ⚙️ Setup Instructions
 
-### 🔐 1. Environment Setup
+### 🔐 1. Clone and Environment Setup
 
 ```bash
 git clone https://github.com/Machforo/AI_Chieftain_Bot.git
 cd AI_Chieftain_Bot
 python -m venv venv
-venv\Scripts\activate  # or source venv/bin/activate on Mac/Linux
+venv\Scripts\activate   # For Windows
+# OR
+source venv/bin/activate   # For Mac/Linux
 pip install -r requirements.txt
-```
+
 
 ### .env file
 ```ini

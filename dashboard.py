@@ -26,17 +26,18 @@ log_lines = []
 with open(LOG_FILE, "r", encoding="ISO-8859-1") as f:
     for line in f:
         parts = [part.strip() for part in line.strip().split("|")]
-        if len(parts) >= 7:
+        if len(parts) >= 8:
             timestamp = parts[0]
             source = parts[3]
             session_id = parts[4]
             user_input = parts[5]
             response = parts[6]
+            guest_type = parts[7]  # Now includes guest/non-guest info
             intent_match = re.search(r"Intent: (.+)", line)
             intent = intent_match.group(1) if intent_match else "Unknown"
-            log_lines.append([timestamp, source, session_id, user_input, response, intent])
+            log_lines.append([timestamp, source, session_id, user_input, response, intent, guest_type])
 
-df = pd.DataFrame(log_lines, columns=["Timestamp", "Source", "Session ID", "User Input", "Response", "Intent"])
+df = pd.DataFrame(log_lines, columns=["Timestamp", "Source", "Session ID", "User Input", "Response", "Intent", "Guest Type"])
 df["Timestamp"] = pd.to_datetime(df["Timestamp"], errors="coerce")
 df["Date"] = df["Timestamp"].dt.date
 
@@ -44,56 +45,67 @@ df["Date"] = df["Timestamp"].dt.date
 st.sidebar.header("🔍 Filter Interactions")
 source_filter = st.sidebar.selectbox("📱 Channel", ["All"] + sorted(df["Source"].unique().tolist()))
 intent_filter = st.sidebar.selectbox("🎯 Intent", ["All"] + sorted(df["Intent"].unique().tolist()))
+guest_filter = st.sidebar.selectbox("🏷️ Guest Type", ["All", "Guest", "Non-Guest"])
 
 filtered_df = df.copy()
 if source_filter != "All":
     filtered_df = filtered_df[filtered_df["Source"] == source_filter]
 if intent_filter != "All":
     filtered_df = filtered_df[filtered_df["Intent"] == intent_filter]
+if guest_filter != "All":
+    filtered_df = filtered_df[filtered_df["Guest Type"].str.lower() == guest_filter.lower()]
 
 # --- KPIs ---
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 col1.metric("🗨️ Total Interactions", len(filtered_df))
-col2.metric("👥 Unique Guests/Sessions", filtered_df["Session ID"].nunique())
-col3.metric("🔍 Detected Intents", filtered_df["Intent"].nunique())
+col2.metric("👥 Unique Sessions", filtered_df["Session ID"].nunique())
+col3.metric("🔍 Unique Intents", filtered_df["Intent"].nunique())
+col4.metric("🏷️ Guest Type", guest_filter if guest_filter != "All" else "All Types")
 
 st.markdown("---")
 
-# --- 📊 Distribution by Source (WhatsApp, Web, etc.) ---
+# --- 📊 Guest Type Distribution ---
+st.subheader("🏷️ Guest vs Non-Guest Breakdown")
+guest_counts = df["Guest Type"].value_counts().reset_index()
+guest_counts.columns = ["Guest Type", "Messages"]
+fig = px.pie(guest_counts, names="Guest Type", values="Messages", title="Guest/Non-Guest Share")
+st.plotly_chart(fig, use_container_width=True)
+
+# --- 📊 Channel Distribution ---
 st.subheader("📊 Channel Distribution")
 source_counts = filtered_df["Source"].value_counts().reset_index()
 source_counts.columns = ["Channel", "Messages"]
 fig = px.pie(source_counts, names="Channel", values="Messages", title="Interaction Share by Channel")
 st.plotly_chart(fig, use_container_width=True)
 
-# --- 📈 Volume by Day ---
+# --- 📈 Daily Interaction Volume ---
 st.subheader("📅 Daily Interaction Volume")
 daily = filtered_df.groupby("Date").size().reset_index(name="Messages")
-fig2 = px.line(daily, x="Date", y="Messages", markers=True, title="Daily Guest Interactions")
+fig2 = px.line(daily, x="Date", y="Messages", markers=True, title="Daily Interactions")
 st.plotly_chart(fig2, use_container_width=True)
 
-# --- 📊 Top Intents (Bookings, Wake-Up Calls, Spa, etc.) ---
+# --- 🎯 Intent Breakdown ---
 st.subheader("🎯 Guest Needs Breakdown")
 intent_counts = filtered_df["Intent"].value_counts().reset_index()
 intent_counts.columns = ["Intent", "Count"]
 fig3 = px.bar(intent_counts, x="Intent", y="Count", title="Most Requested Services", color="Intent")
 st.plotly_chart(fig3, use_container_width=True)
 
-# --- 🧾 Session Activity ---
-st.subheader("📈 Engagement by Guest Sessions")
+# --- 📈 Session Engagement ---
+st.subheader("📈 Engagement by Session")
 session_counts = filtered_df["Session ID"].value_counts().reset_index()
 session_counts.columns = ["Session ID", "Messages"]
-fig4 = px.bar(session_counts, x="Session ID", y="Messages", title="Activity Per Guest Session")
+fig4 = px.bar(session_counts, x="Session ID", y="Messages", title="Activity Per Session")
 st.plotly_chart(fig4, use_container_width=True)
 
-# --- 📜 Raw Logs ---
+# --- 📜 Raw Log Viewer ---
 st.subheader("📜 Guest Interaction Log")
 st.dataframe(filtered_df)
 
-# --- 📥 Export Logs ---
+# --- 📥 CSV Download ---
 st.download_button("📥 Download Logs as CSV", filtered_df.to_csv(index=False), file_name="LUXORIA_logs.csv")
 
-# --- 🧠 Conversation Summaries (if available) ---
+# --- 🧠 Summaries & Follow-up Emails ---
 st.subheader("🧠 Guest Session Summaries & Follow-up Emails")
 
 if os.path.exists(SUMMARY_PATH):

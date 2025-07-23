@@ -35,10 +35,22 @@ class ConciergeBot:
             logger.error(f"Error initializing LUXORIA SUITES QA agent: {e}")
             raise
 
-    def ask(self, query: str) -> str:
+    def ask(self, query: str, user_type) -> str:
         try:
-            # Custom prompt context to steer LLM for hotel branding
-# Custom prompt context to steer LLM for hotel branding
+            restricted_services = [
+                "wake-up call", "spa", "gym", "pool", "room service", "book a room", "booking"
+            ]
+            lower_query = query.lower()
+
+            # Block restricted queries for non-guests
+            if user_type == "non-guest":
+                if any(term in lower_query for term in restricted_services):
+                    return (
+                        "We're sorry, this service is exclusive to *guests* at LUXORIA SUITES.\n"
+                        "Feel free to explore our dining options, events, and lobby amenities!"
+                    )
+
+            # Custom prompt with hotel branding
             luxoria_context = (
                 "You are a knowledgeable, polite, and concise concierge assistant at *LUXORIA SUITES*, "
                 "a premium hotel known for elegant accommodations, gourmet dining, rejuvenating spa treatments, "
@@ -48,7 +60,6 @@ class ConciergeBot:
                 "Only elaborate when the guest explicitly asks for more details.\n\n"
                 f"Guest Query: {query}"
             )
-
 
             response = self.qa_chain.run(luxoria_context)
             logger.info(f"Processed query at LUXORIA SUITES: {query}")

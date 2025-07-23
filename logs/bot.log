@@ -947,3 +947,86 @@ To check availability, could you please provide me with your preferred dates of 
 2025-07-23 02:38:19,174 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
 2025-07-23 02:38:35,253 | QAAgent | INFO | Processed query at LUXORIA SUITES: I want to make the payment.
 2025-07-23 02:38:35,254 | web | INFO | Web | 17da688e-d4b5-428f-bebd-183305feab49 | I want to make the payment. | We accept major credit cards, including Visa, Mastercard, and American Express. You may also opt for cash or bank transfer. Our front desk team will be happy to assist you with the payment process. | Intent: payment_request
+2025-07-23 20:31:18,849 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:31:32,921 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:31:34,048 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 20:31:36,525 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:31:44,930 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:31:45,733 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 20:33:11,149 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:33:19,136 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:33:19,974 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 20:33:34,530 | QAAgent | INFO | Processed query at LUXORIA SUITES: I want to get all details of the hotel
+2025-07-23 20:34:44,588 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:34:53,842 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:34:55,040 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 20:34:58,058 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:35:06,957 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:35:07,708 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 20:36:46,371 | QAAgent | INFO | Processed query at LUXORIA SUITES: I am a solo traveller is there any accomodation for me
+2025-07-23 20:37:16,689 | QAAgent | INFO | Processed query at LUXORIA SUITES: Yes please recommend a specific room type
+2025-07-23 20:37:44,109 | QAAgent | INFO | Processed query at LUXORIA SUITES: Do you have gym? What are the timings?
+2025-07-23 20:38:33,980 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:38:43,119 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:38:44,440 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 20:39:04,721 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:39:13,068 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:39:13,920 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 20:39:16,216 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:39:25,216 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:39:26,204 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 20:41:09,224 | QAAgent | INFO | Processed query at LUXORIA SUITES: I am a family person do u have rooms for the same
+2025-07-23 20:41:26,800 | QAAgent | INFO | Processed query at LUXORIA SUITES: Okayy do you have gym at your hotel
+2025-07-23 20:41:59,402 | QAAgent | INFO | Processed query at LUXORIA SUITES: Okay can you help me book a room
+2025-07-23 20:42:31,008 | QAAgent | INFO | Processed query at LUXORIA SUITES: Tell me details and amentities for family room
+2025-07-23 20:42:47,559 | QAAgent | INFO | Processed query at LUXORIA SUITES: Okay lets book family room
+2025-07-23 20:43:14,295 | QAAgent | INFO | Processed query at LUXORIA SUITES: Yes I want to make the payment
+2025-07-23 20:44:17,699 | QAAgent | INFO | Processed query at LUXORIA SUITES: Yes please give me the payment link
+2025-07-23 20:49:38,188 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:49:46,469 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:49:47,256 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 20:49:49,796 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:49:58,321 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:49:59,202 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 20:53:18,560 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:53:26,673 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:53:27,451 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 20:53:29,936 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 20:53:39,312 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 20:53:40,092 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 21:05:25,553 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 21:05:35,601 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 21:05:36,683 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 21:05:39,259 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 21:05:48,096 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 21:05:48,907 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 21:07:45,826 | QAAgent | INFO | Processed query at LUXORIA SUITES: I want to book a room at your hotel. Can you give me details about the same.
+2025-07-23 21:08:21,507 | QAAgent | INFO | Processed query at LUXORIA SUITES: Can you let me know about the deluxe room in detail. What all ameneties do I get?
+2025-07-23 21:08:33,596 | QAAgent | INFO | Processed query at LUXORIA SUITES: 1
+2025-07-23 21:08:41,963 | QAAgent | INFO | Processed query at LUXORIA SUITES: 3
+2025-07-23 21:08:52,067 | QAAgent | INFO | Processed query at LUXORIA SUITES: 2
+2025-07-23 21:09:00,912 | QAAgent | INFO | Processed query at LUXORIA SUITES: Yes
+2025-07-23 21:24:57,747 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 21:25:06,185 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 21:25:07,532 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 21:25:17,700 | QAAgent | INFO | Processed query at LUXORIA SUITES: hii
+2025-07-23 21:25:17,701 | web | INFO | Web | 22978a3b-bb71-45d6-9e63-dfd6ced77876 | hii | Welcome to LUXORIA SUITES. How may I assist you today? | Intent: goodbye
+2025-07-23 21:25:29,684 | QAAgent | INFO | Processed query at LUXORIA SUITES: can I make the payment
+2025-07-23 21:25:29,685 | web | INFO | Web | 22978a3b-bb71-45d6-9e63-dfd6ced77876 | can I make the payment | You can settle your bill at the front desk or through our secure online payment portal, accessible via the in-room tablet. We also accept major credit cards and cash. | Intent: payment_request
+2025-07-23 21:30:47,517 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 21:30:54,496 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 21:30:55,825 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 21:34:43,662 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 21:34:50,607 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 21:34:51,528 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-23 21:35:05,221 | QAAgent | INFO | Processed query at LUXORIA SUITES: Hello
+2025-07-23 21:35:05,221 | web | INFO | Web | e7784bf2-5071-4e05-942d-a8d187a75db9 | Hello | Welcome to LUXORIA SUITES. How may I assist you today? | Intent: greet
+2025-07-23 21:35:22,692 | QAAgent | INFO | Processed query at LUXORIA SUITES: Can you provide me the restaurant details?
+2025-07-23 21:35:22,693 | web | INFO | Web | e7784bf2-5071-4e05-942d-a8d187a75db9 | Can you provide me the restaurant details? | At LUXORIA SUITES, we offer an exquisite dining experience at our signature restaurant, Azure. Our menu features gourmet cuisine with a focus on seasonal ingredients and expertly crafted cocktails. We also offer private dining options and personalized service to ensure a memorable experience. | Intent: goodbye
+2025-07-23 21:36:28,077 | QAAgent | INFO | Processed query at LUXORIA SUITES: Can you schedule a wake up call for me
+2025-07-23 21:36:28,078 | web | INFO | Web | e7784bf2-5071-4e05-942d-a8d187a75db9 | Can you schedule a wake up call for me | Yes, just inform the reception and we will schedule your wake-up call. | Intent: goodbye
+2025-07-23 21:36:42,588 | QAAgent | INFO | Processed query at LUXORIA SUITES: Can I make the payment
+2025-07-23 21:36:42,588 | web | INFO | Web | e7784bf2-5071-4e05-942d-a8d187a75db9 | Can I make the payment | We accept various payment methods, including credit cards, cash, and digital payments. Our front desk team will be happy to assist you with the payment process. | Intent: payment_request
+2025-07-23 21:46:55,706 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-23 21:47:03,253 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-23 21:47:04,447 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
