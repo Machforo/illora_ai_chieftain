@@ -141,8 +141,19 @@ if user_input:
     speak(response)
     st.session_state.chat_history.append(("assistant", response))
 
-# --- Payment Flow ---
-if st.session_state.get("predicted_intent") == "payment_request" and st.session_state.guest_status == "Yes":
+# Set booking form trigger
+if st.session_state.get("predicted_intent") == "payment_request":
+    if st.session_state.guest_status == "Yes":
+        st.session_state.show_booking_form = True
+    else:
+        st.warning("⚠️ Only hotel guests can proceed with room booking and payments.")
+    st.session_state.predicted_intent = None  # Reset intent after triggering
+
+elif st.session_state.get("predicted_intent") == "payment_request":
+    st.warning("⚠️ Only hotel guests can proceed with room booking and payments.")
+
+# Show the form if triggered
+if st.session_state.get("show_booking_form"):
     st.info("LUXORIA SUITES accepts online payments or cash.")
 
     with st.form("booking_form"):
@@ -168,7 +179,6 @@ if st.session_state.get("predicted_intent") == "payment_request" and st.session_
                 st.markdown(f"[Click here to Pay]({pay_url})", unsafe_allow_html=True)
             else:
                 st.error("⚠️ Failed to generate payment link.")
+            # After payment, hide the form
+            st.session_state.show_booking_form = False
 
-    st.session_state.predicted_intent = None  # Reset
-elif st.session_state.get("predicted_intent") == "payment_request":
-    st.warning("⚠️ Only hotel guests can proceed with room booking and payments.")

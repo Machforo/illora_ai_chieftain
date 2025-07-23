@@ -27,7 +27,7 @@ def whatsapp_reply():
 
     user_session = session_data[user_number]
     stage = user_session["stage"]
-    
+
     print(f"[Stage: {stage}] Incoming: {incoming_msg}")
 
     # Step 0: Identify guest or non-guest
@@ -45,31 +45,31 @@ def whatsapp_reply():
                 "👋 Welcome to *LUXORIA SUITES*.\nAre you a *guest* staying with us or a *non-guest* (e.g., restaurant or event visitor)?\n"
                 "Please reply with *guest* or *non-guest* to proceed."
             )
-        log_chat("WhatsApp", user_number, incoming_msg, response, user_session["user_type"])
+        log_chat("WhatsApp", user_number, incoming_msg, response, user_session.get("user_type", "guest"))
         msg.message(response)
         return str(msg)
 
     # Step A: Always first give response from bot
-    user_type = session_data[user_number].get("user_type", "guest")
+    user_type = user_session.get("user_type", "guest")
     answer = bot.ask(incoming_msg, user_type=user_type)
     response = f"💬 {answer}"
 
-
     intent = classify_intent(incoming_msg.lower())
-    if intent == "payment_request" and user_session.get("user_type") == "guest":
+
+    # Step B: Detect intent for payment
+    if intent == "payment_request" and user_type == "guest":
         user_session["stage"] = "room"
         response += (
-                "\n\n💼 Let's book your stay:\n"
-                "Please choose your room type:\n"
-                "1️⃣ Deluxe Room – ₹4000/night\n"
-                "2️⃣ Executive Room – ₹6000/night\n"
-                "3️⃣ Family Room – ₹8000/night\n\n"
-                "Reply with *1*, *2*, or *3* to proceed."
-                )
-
+            "\n\n💼 Let's book your stay:\n"
+            "Please choose your room type:\n"
+            "1️⃣ Deluxe Room – ₹4000/night\n"
+            "2️⃣ Executive Room – ₹6000/night\n"
+            "3️⃣ Family Room – ₹8000/night\n\n"
+            "Reply with *1*, *2*, or *3* to proceed."
+        )
 
     # Step 1: Room type selection
-    if stage == "room":
+    elif stage == "room":
         if incoming_msg in ["1", "2", "3"]:
             selected_room = ROOM_OPTIONS[int(incoming_msg) - 1]
             user_session["room_type"] = selected_room
@@ -112,7 +112,6 @@ def whatsapp_reply():
                 "✅ Please reply with *Yes* to confirm your booking."
             )
 
-
     # Step 4: Confirmation
     elif stage == "confirm":
         if incoming_msg.lower() == "yes":
@@ -135,11 +134,12 @@ def whatsapp_reply():
             else:
                 response = "⚠ Payment link generation failed. Please try again."
 
+            # Reset session after confirmation
             session_data[user_number] = {"stage": "identify"}
         else:
             response = "❌ Booking not confirmed. Please reply *Yes* to confirm or restart."
 
-    log_chat("WhatsApp", user_number, incoming_msg, response, user_type)
+    log_chat("WhatsApp", user_number, incoming_msg, response, user_session.get("user_type", "guest"))
     msg.message(response)
     return str(msg)
 

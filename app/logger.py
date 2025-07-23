@@ -1,6 +1,7 @@
 import logging
 import os
 
+
 LOG_PATH_TXT = 'C:\\Users\\Atharv\\Documents\\AI_chieftain_bot_AtharvKumar\\logs\\bot.log'
 
 #-- function to initialize a logger that writes log to a file
