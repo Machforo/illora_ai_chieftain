@@ -1,0 +1,63 @@
+services:
+  - type: web
+    name: luxoria-streamlit
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app/interfaces/web_ui.py --server.port 10000
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: MAILSLURP_API_KEY
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_WHATSAPP_NUMBER
+        sync: false
+
+  - type: web
+    name: luxoria-flask
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python twilio_webhook.py
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: MAILSLURP_API_KEY
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_WHATSAPP_NUMBER
+        sync: false
+
+  - type: web
+    name: luxoria-flask
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run dashboard.py --server.port 10000
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: MAILSLURP_API_KEY
+        sync: false
+      - key: TWILIO_ACCOUNT_SID
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: TWILIO_WHATSAPP_NUMBER
+        sync: false

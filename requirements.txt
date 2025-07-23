@@ -1,36 +1,39 @@
+# Core Dependencies
 openai
 langchain
+langchain-community
 faiss-cpu
 pandas
 python-dotenv
 tiktoken
 sentence-transformers
-qrcode[pil]
-SpeechRecognition
-pydub
-gTTs
-streamlit
-streamlit-audiorec
-flask
-twilio
-pygame
-rasa
-pyyaml
 numpy
 scikit-learn
-stripe
-fastapi
-langchain-community
+
+# Chatbot, Web, and Backend
 streamlit
-uuid
-numpy
-pil
-io
-tempfile
+flask
+fastapi
+twilio
+rasa
+pyyaml
+
+# Audio + Voice I/O
+SpeechRecognition
+pydub
 pygame
-subprocess
-request
-joblib
+gTTS
+
+# QR Code + Image
+qrcode
+Pillow
+
+# Charts & UI
 plotly
 
+# Payments
+stripe
 
+# Other utilities
+joblib
+requests
