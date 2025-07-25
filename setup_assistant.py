@@ -36,7 +36,7 @@ if submitted:
             qa_pairs = generate_qa_pairs(hotel_info)
 
             #os.makedirs("data", exist_ok=True)
-            with open("data/qa_generator.csv", "w", encoding="utf-8") as f:
+            with open("qa_generator.csv", "w", encoding="utf-8") as f:
                 for line in qa_pairs:
                     f.write(line.strip() + "\n")
 
