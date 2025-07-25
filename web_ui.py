@@ -29,6 +29,7 @@ ROOM_PRICING = {
     "family": 8000
 }
 
+'''
 # --- Audio ---
 def speak(text):
     tts = gTTS(text)
@@ -43,6 +44,7 @@ def speak(text):
         continue
     pygame.mixer.quit()
     os.remove(path)
+'''
 
 # --- QR Generator ---
 def generate_qr_code(link: str) -> Image.Image:
@@ -137,7 +139,7 @@ if user_input:
         log_chat(coming_from, st.session_state.session_id, user_input, response, st.session_state.predicted_intent,is_guest)
 
     st.chat_message("assistant").markdown(response)
-    speak(response)
+    #speak(response)
     st.session_state.chat_history.append(("assistant", response))
 
 # Set booking form trigger
