@@ -5,7 +5,7 @@
 ---
 
 ## 🎥 Demo Video
-**[Google Drive Demo Link]**
+**https://drive.google.com/file/d/1_mAcV0OX2tLDVl-vT17lBcic5GsFxKrv/view?usp=sharing**
 
 ---
 
