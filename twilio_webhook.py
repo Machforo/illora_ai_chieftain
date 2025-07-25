@@ -2,10 +2,10 @@
 
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
-from app.agents.qa_agent import ConciergeBot
-from app.services.payment_gateway import create_checkout_session
-from app.logger import log_chat
-from app.services.intent_classifier import classify_intent
+from qa_agent import ConciergeBot
+from payment_gateway import create_checkout_session
+from logger import log_chat
+from intent_classifier import classify_intent
 
 app = Flask(__name__)
 bot = ConciergeBot()

@@ -8,8 +8,8 @@ import re
 from datetime import datetime
 import json
 
-LOG_FILE = "logs/bot.log"
-SUMMARY_PATH = 'logs/summary_log.jsonl'
+LOG_FILE = "bot.log"
+SUMMARY_PATH = 'summary_log.jsonl'
 
 # --- Set page title and layout ---
 st.set_page_config(page_title="LUXORIA SUITES – Admin Console", layout="wide")

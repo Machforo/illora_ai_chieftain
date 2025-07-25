@@ -11,17 +11,16 @@ import pygame
 import subprocess
 from gtts import gTTS
 import speech_recognition as sr
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 
 
-from app.services.payment_gateway import create_checkout_session
-from app.logger import log_chat
-from app.agents.qa_agent import ConciergeBot
-from app.services.intent_classifier import classify_intent
+from payment_gateway import create_checkout_session
+from logger import log_chat
+from qa_agent import ConciergeBot
+from intent_classifier import classify_intent
 
 
 # --- Branding ---
-LOGO_PATH = os.path.join("app", "assets", "logo.jpg")
+LOGO_PATH = "logo.jpg"
 QR_LINK = "http://localhost:8501"
 
 ROOM_PRICING = {

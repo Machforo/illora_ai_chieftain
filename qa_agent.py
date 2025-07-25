@@ -1,9 +1,9 @@
 # importing essential libraries
 from langchain_community.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQA
-from app.services.vector_store import create_vector_store
-from app.config import Config
-from app.logger import setup_logger
+from vector_store import create_vector_store
+from config import Config
+from logger import setup_logger
 
 # setting up the logger
 logger = setup_logger("QAAgent")

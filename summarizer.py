@@ -10,8 +10,8 @@ load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 client = Groq(api_key=GROQ_API_KEY)
 
-LOG_PATH = 'C:\\Users\\Atharv\\Documents\\AI_chieftain_bot_AtharvKumar\\logs\\bot.log'
-SUMMARY_OUTPUT_PATH = os.path.join("logs", "summary_log.jsonl")
+LOG_PATH = 'bot.log'
+SUMMARY_OUTPUT_PATH = "summary_log.jsonl"
 
 
 def extract_conversations(log_file_path):

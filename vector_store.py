@@ -2,8 +2,8 @@ from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain.docstore.document import Document
 import pandas as pd
-from app.config import Config
-from app.logger import setup_logger
+from config import Config
+from logger import setup_logger
 
 logger = setup_logger("VectorStoreService")
 

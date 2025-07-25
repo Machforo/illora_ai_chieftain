@@ -1167,3 +1167,32 @@ Would you like more information on any of these services or perhaps our honeymoo
 2025-07-25 17:09:35,052 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
 2025-07-25 17:09:46,887 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
 2025-07-25 17:09:48,890 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-25 17:54:05,676 | VectorStoreService | ERROR | Error creating vector store: [Errno 2] No such file or directory: 'data/hotel_faq.csv'
+2025-07-25 17:54:05,676 | QAAgent | ERROR | Error initializing LUXORIA SUITES QA agent: [Errno 2] No such file or directory: 'data/hotel_faq.csv'
+2025-07-25 17:54:57,021 | VectorStoreService | INFO | Loaded 90 documents from hotel_faq.csv
+2025-07-25 17:55:04,534 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-25 17:55:05,430 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-25 17:55:14,386 | QAAgent | INFO | Processed query at LUXORIA SUITES: Hii
+2025-07-25 17:55:14,387 | web | INFO | Web | ee3d417e-8080-40f5-86d0-c7ebc45488d2 | Hii | Welcome to Luxoria Suites. How may I assist you today? | Intent: goodbye | Guest: True
+2025-07-25 17:55:28,782 | QAAgent | INFO | Processed query at LUXORIA SUITES: I want to make a payment
+2025-07-25 17:55:28,782 | web | INFO | Web | ee3d417e-8080-40f5-86d0-c7ebc45488d2 | I want to make a payment | You can make a payment at our front desk or through our secure online portal. We accept all major credit cards, including Visa, Mastercard, and American Express. | Intent: payment_request | Guest: True
+2025-07-25 17:57:29,714 | VectorStoreService | INFO | Loaded 90 documents from hotel_faq.csv
+2025-07-25 17:57:48,172 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-25 17:57:49,738 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-25 17:57:52,394 | VectorStoreService | INFO | Loaded 90 documents from hotel_faq.csv
+2025-07-25 17:58:00,404 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-25 17:58:01,228 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-25 18:01:04,414 | VectorStoreService | INFO | Loaded 90 documents from hotel_faq.csv
+2025-07-25 18:01:12,887 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-25 18:01:13,681 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-25 18:01:58,132 | VectorStoreService | INFO | Loaded 90 documents from hotel_faq.csv
+2025-07-25 18:02:06,860 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-25 18:02:07,687 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-25 18:02:09,989 | VectorStoreService | INFO | Loaded 90 documents from hotel_faq.csv
+2025-07-25 18:02:18,962 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-25 18:02:19,850 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-25 18:03:27,638 | QAAgent | INFO | Processed query at LUXORIA SUITES: I want to make a payment
+2025-07-25 18:03:34,424 | QAAgent | INFO | Processed query at LUXORIA SUITES: 1
+2025-07-25 18:03:40,063 | QAAgent | INFO | Processed query at LUXORIA SUITES: 7
+2025-07-25 18:03:47,508 | QAAgent | INFO | Processed query at LUXORIA SUITES: 1
+2025-07-25 18:03:54,860 | QAAgent | INFO | Processed query at LUXORIA SUITES: Yes

@@ -2,7 +2,7 @@ import yaml
 import csv
 
 # Load the YAML file
-with open("C:\\Users\\Atharv\\Documents\\AI_chieftain_bot_AtharvKumar\\app\\services\\nlu.yml", "r", encoding="utf-8") as file:
+with open("nlu.yml", "r", encoding="utf-8") as file:
     data = yaml.safe_load(file)
 
 # Open a CSV file to write

@@ -1,4 +1,4 @@
-from app.agents.qa_agent import ConciergeBot
+from qa_agent import ConciergeBot
 
 
 # function to make the agent run on the terminal
