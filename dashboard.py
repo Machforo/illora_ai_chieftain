@@ -7,7 +7,9 @@ import plotly.express as px
 import re
 from datetime import datetime
 import json
+import summarizer
 
+summarizer.main()
 LOG_FILE = "bot.log"
 SUMMARY_PATH = 'summary_log.jsonl'
 

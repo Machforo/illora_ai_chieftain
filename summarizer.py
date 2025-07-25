@@ -78,8 +78,6 @@ Conversation:
 
 
 def save_summary(session_id, summary_response):
-    if not os.path.exists(os.path.dirname(SUMMARY_OUTPUT_PATH)):
-        os.makedirs(os.path.dirname(SUMMARY_OUTPUT_PATH))
 
     summary, follow_up = summary_response.split("Follow-up", 1)
     follow_up_email = "Follow-up" + follow_up
