@@ -29,22 +29,6 @@ ROOM_PRICING = {
     "family": 8000
 }
 
-'''
-# --- Audio ---
-def speak(text):
-    tts = gTTS(text)
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as fp:
-        path = fp.name
-        tts.save(path)
-
-    pygame.mixer.init()
-    pygame.mixer.music.load(path)
-    pygame.mixer.music.play()
-    while pygame.mixer.music.get_busy():
-        continue
-    pygame.mixer.quit()
-    os.remove(path)
-'''
 
 # --- QR Generator ---
 def generate_qr_code(link: str) -> Image.Image:
