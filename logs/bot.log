@@ -1161,3 +1161,9 @@ Would you like more information on any of these services or perhaps our honeymoo
 2025-07-24 01:05:27,905 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
 2025-07-24 01:05:38,002 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
 2025-07-24 01:05:39,120 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-24 01:41:23,170 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-24 01:41:31,843 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-24 01:41:32,609 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
+2025-07-25 17:09:35,052 | VectorStoreService | INFO | Loaded 90 documents from data/hotel_faq.csv
+2025-07-25 17:09:46,887 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-07-25 17:09:48,890 | QAAgent | INFO | LUXORIA SUITES QA agent initialized successfully using Groq.
