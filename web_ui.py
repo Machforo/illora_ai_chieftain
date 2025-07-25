@@ -21,7 +21,7 @@ from intent_classifier import classify_intent
 
 # --- Branding ---
 LOGO_PATH = "logo.jpg"
-QR_LINK = "http://localhost:8501"
+QR_LINK = "https://aichieftainbotatharvkumar-copy101-3dlpbfrvuw3bz6sythkyps.streamlit.app/"
 
 ROOM_PRICING = {
     "deluxe": 4000,
