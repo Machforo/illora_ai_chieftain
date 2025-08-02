@@ -1,4 +1,4 @@
-# 🛎️ AI Chieftain – Concierge Bot for LUXORIA SUITES
+# 🛎️ AI Chieftain – Concierge Bot for  ILLORA RETREATS
 
 **AI Chieftain** is an advanced AI concierge assistant designed specifically for **LUXORIA SUITES**, enabling guests and visitors to interact via **Web**, **Voice**, **QR**, and **WhatsApp**. It integrates cutting-edge **LLMs**, **Stripe**, **LangChain**, **Twilio**, and **Streamlit** with features like **room payments**, **chat summaries**, and a complete **property management system (PMS)** backend.
 
