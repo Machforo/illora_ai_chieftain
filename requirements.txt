@@ -3,7 +3,7 @@ numpy
 scipy
 scikit-learn
 faiss-cpu
-groq
+
 # Core Dependencies
 openai
 langchain
@@ -40,3 +40,13 @@ stripe
 # Other utilities
 joblib
 requests
+
+
+PyMuPDF
+frontend
+python-docx
+tiktoken
+pdfplumber
+ratelimit
+fuzzywuzzy[speedup]
+python-multipart
