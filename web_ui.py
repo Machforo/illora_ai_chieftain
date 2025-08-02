@@ -1,59 +1,37 @@
 import streamlit as st
 import uuid
-import stripe
-import sys
-import os
 import qrcode
+import os
 from io import BytesIO
 from PIL import Image
-import tempfile
-import pygame
-import subprocess
-from gtts import gTTS
-import speech_recognition as sr
-
-
-from payment_gateway import create_checkout_session
+from payment_gateway import create_checkout_session, create_addon_checkout_session
 from logger import log_chat
 from qa_agent import ConciergeBot
 from intent_classifier import classify_intent
 
-
 # --- Branding ---
 LOGO_PATH = "logo.jpg"
-QR_LINK = "https://aichieftainbotatharvkumar-copy101-3dlpbfrvuw3bz6sythkyps.streamlit.app/"
+QR_LINK = "https://machforo-illora-ai-chieftain-web-ui-mll3bb.streamlit.app/"
 
-ROOM_PRICING = {
-    "deluxe": 4000,
-    "executive": 6000,
-    "family": 8000
+# --- Add-on Options ---
+AVAILABLE_EXTRAS = {
+    "Spa Massage": "spa_massage",
+    "Aromatherapy": "spa_aromatherapy",
+    "Hot Stone Therapy": "spa_hot_stone",
+    "Mocktail": "mocktail",
+    "Juice": "juice",
+    "Cheese Platter": "cheese_platter",
+    "Chocolate Brownie": "chocolate_brownie"
 }
-
 
 # --- QR Generator ---
 def generate_qr_code(link: str) -> Image.Image:
     qr = qrcode.QRCode(version=1, box_size=10, border=2)
     qr.add_data(link)
     qr.make(fit=True)
-    img = qr.make_image(fill="black", back_color="white")
-    return img
+    return qr.make_image(fill="black", back_color="white")
 
-# --- Speech Recognition ---
-def listen(device_index=None):
-    recognizer = sr.Recognizer()
-    try:
-        with sr.Microphone() as source:
-            st.info("🎙️ Adjusting for ambient noise...")
-            recognizer.adjust_for_ambient_noise(source, duration=1)
-            st.info("🎙️ Listening... Please speak clearly within 10 seconds.")
-            audio = recognizer.listen(source, timeout=10, phrase_time_limit=10)
-            st.success("🔍 Recognizing...")
-            return recognizer.recognize_google(audio)
-    except Exception as e:
-        st.error(f"⚠️ Audio Error: {e}")
-        return None
-
-# --- Init Bot & Session ---
+# --- Session State ---
 if "bot" not in st.session_state:
     st.session_state.bot = ConciergeBot()
 if "chat_history" not in st.session_state:
@@ -62,108 +40,146 @@ if "session_id" not in st.session_state:
     st.session_state.session_id = str(uuid.uuid4())
 if "guest_status" not in st.session_state:
     st.session_state.guest_status = None
+if "pending_addon_request" not in st.session_state:
+    st.session_state.pending_addon_request = []
 
-# --- Page Layout ---
-st.set_page_config(page_title="AI Chieftain – Concierge Bot", page_icon="🛎️")
+# --- Layout ---
+st.set_page_config(page_title="ILLORA Retreat – AI Concierge", page_icon="🛎️")
 if os.path.exists(LOGO_PATH):
     st.image(LOGO_PATH, width=150)
-st.title("🏨 LUXORIA SUITES – Your AI Concierge")
-st.markdown("_Welcome to LUXORIA SUITES, where elegance meets intelligence._")
+st.title("🏨 ILLORA Retreat – Your AI Concierge")
+st.markdown("_Welcome to ILLORA Retreat, where luxury meets the wilderness._")
 
-# --- Sidebar Guest Type Form ---
+# --- Guest Identity ---
 with st.sidebar.form("guest_status_form"):
-    st.markdown("### 🧾 Tell us who you are:")
-    guest_option = st.radio("Are you a guest staying at Luxoria Suites?", ["Yes", "No"])
+    st.markdown("### 🧾 Who are you?")
+    guest_option = st.radio("Are you staying at ILLORA Retreat?", ["Yes", "No"])
     submit_guest = st.form_submit_button("Submit")
-
     if submit_guest:
         st.session_state.guest_status = guest_option
 
-if st.session_state.guest_status is None:
-    st.warning("Please specify whether you're a guest or non-guest from the sidebar to continue.")
-    st.stop()
-
-# --- QR Code ---
+# --- QR Display ---
 st.subheader("📱 Scan to Open on Mobile")
 qr_img = generate_qr_code(QR_LINK)
 qr_buf = BytesIO()
 qr_img.save(qr_buf, format="PNG")
-st.image(qr_buf.getvalue(), width=180, caption="Scan to explore LUXORIA SUITES on your phone")
+st.image(qr_buf.getvalue(), width=180, caption="Scan to explore ILLORA Retreat")
 
-# --- Display Chat History ---
+# --- Chat History ---
 for role, msg in st.session_state.chat_history:
     with st.chat_message(role):
         st.markdown(msg)
 
-# --- User Input ---
-st.markdown("### 💬 Type your message or speak below:")
-user_input = st.chat_input("Ask me anything about LUXORIA SUITES")
+# --- Chat Input ---
+st.markdown("### 💬 Type your message below:")
+user_input = st.chat_input("Ask me anything about ILLORA Retreat")
 coming_from = "Web"
 
-st.markdown("### 🎤 Or use voice:")
-if st.button("🎙️ Talk to the Bot"):
-    spoken_text = listen()
-    if spoken_text:
-        user_input = spoken_text
-        coming_from = "Voice"
-        st.chat_message("user").markdown(f"🗣️ {spoken_text}")
-        st.session_state.chat_history.append(("user", spoken_text))
-
-# --- Handle Bot Interaction ---
+# --- Chat Logic ---
 if user_input:
     st.session_state.user_input = user_input
     st.session_state.predicted_intent = classify_intent(user_input)
     st.chat_message("user").markdown(user_input)
     st.session_state.chat_history.append(("user", user_input))
 
+    # Match add-on keywords
+    message_lower = user_input.lower()
+    addon_matches = [key for key in AVAILABLE_EXTRAS if key.lower() in message_lower]
+    st.session_state.pending_addon_request = addon_matches if addon_matches else []
+
     with st.spinner("🤖 Thinking..."):
         is_guest = st.session_state.guest_status == "Yes"
         response = st.session_state.bot.ask(user_input, user_type=is_guest)
         st.session_state.response = response
-        log_chat(coming_from, st.session_state.session_id, user_input, response, st.session_state.predicted_intent,is_guest)
+        log_chat(coming_from, st.session_state.session_id, user_input, response,
+                 st.session_state.predicted_intent, is_guest)
 
     st.chat_message("assistant").markdown(response)
-    #speak(response)
     st.session_state.chat_history.append(("assistant", response))
 
-# Set booking form trigger
-if st.session_state.get("predicted_intent") == "payment_request":
-    if st.session_state.guest_status == "Yes":
-        st.session_state.show_booking_form = True
-    else:
-        st.warning("⚠️ Only hotel guests can proceed with room booking and payments.")
-    st.session_state.predicted_intent = None  # Reset intent after triggering
+# --- Ask for confirmation (addon payment) ---
+if st.session_state.get("pending_addon_request"):
+    st.info(f"Would you like to pay for the following service(s)?\n👉 {', '.join(st.session_state.pending_addon_request)}")
 
-elif st.session_state.get("predicted_intent") == "payment_request":
-    st.warning("⚠️ Only hotel guests can proceed with room booking and payments.")
+    col1, col2 = st.columns(2)
+    with col1:
+        confirm = st.button("💳 Yes, generate payment link")
+    with col2:
+        cancel = st.button("❌ No, maybe later")
 
-# Show the form if triggered
-if st.session_state.get("show_booking_form"):
-    st.info("LUXORIA SUITES accepts online payments or cash.")
+    if confirm:
+        extra_keys = [AVAILABLE_EXTRAS[k] for k in st.session_state.pending_addon_request]
+        addon_url = create_addon_checkout_session(
+            session_id=st.session_state.session_id,
+            extras=extra_keys
+        )
+        if addon_url:
+            st.success("🧾 Add-on payment link generated.")
+            st.markdown(f"[💳 Pay for Add-ons]({addon_url})", unsafe_allow_html=True)
+        else:
+            st.error("⚠️ Could not generate payment link.")
+        st.session_state.pending_addon_request = []
+
+    if cancel:
+        st.session_state.pending_addon_request = []
+
+# --- Room/Addon Payment Form (only if intent == payment_request) ---
+if st.session_state.get("predicted_intent") == "payment_request" and not st.session_state.get("pending_addon_request"):
+    st.info("You can book a room and/or pay for spa or extras below.")
 
     with st.form("booking_form"):
-        room_type = st.selectbox("🏨 Select Room Type", ["Deluxe", "Executive", "Family"])
-        nights = st.number_input("🕒 Number of nights", min_value=1, step=1)
-        payment_method = st.radio("💳 Payment Method", ["Online", "Cash on Arrival"])
+        room_type = st.selectbox("Room Type (optional)", ["None", "Standard", "Deluxe", "Executive", "Family", "Suite"])
+        nights = st.number_input("Number of nights (optional)", min_value=1, step=1, value=1)
+        payment_method = st.radio("Payment Method", ["Online", "Cash on Arrival"])
 
-        price_per_night = {"Deluxe": 4000, "Executive": 6000, "Family": 8000}
-        total_price = price_per_night[room_type] * nights
-        st.info(f"💵 Total: ₹{total_price} for {nights} night(s) in {room_type} Room. Includes all premium amenities.")
+        price_map = {
+            "Standard": 12500,
+            "Deluxe": 17000,
+            "Executive": 23000,
+            "Family": 27500,
+            "Suite": 34000
+        }
 
-        submitted = st.form_submit_button("✅ Confirm and Pay")
+        if room_type != "None":
+            base_price = price_map[room_type] * nights
+            st.markdown(f"💰 **Room Total: ₹{base_price}**")
+        else:
+            st.markdown("💡 You can skip room booking and only pay for spa or other add-ons.")
 
-        if submitted:
-            pay_url = create_checkout_session(
-                session_id=st.session_state.session_id,
-                room_type=room_type,
-                nights=nights,
-                cash=(payment_method == "Cash on Arrival")
-            )
-            if pay_url:
-                st.success("✅ Payment link generated!")
-                st.markdown(f"[Click here to Pay]({pay_url})", unsafe_allow_html=True)
-            else:
-                st.error("⚠️ Failed to generate payment link.")
-            # After payment, hide the form
-            st.session_state.show_booking_form = False
+        st.markdown("---")
+        st.markdown("### 🧖‍♀️ Optional Add-ons (Billed Separately)")
+        selected_extras = st.multiselect("Choose your add-ons:", list(AVAILABLE_EXTRAS.keys()))
+        submit_booking = st.form_submit_button("✅ Proceed with Payment")
 
+        if submit_booking:
+            room_selected = room_type != "None"
+            any_addon_selected = len(selected_extras) > 0
+
+            if room_selected:
+                room_url = create_checkout_session(
+                    session_id=st.session_state.session_id,
+                    room_type=room_type,
+                    nights=nights,
+                    cash=(payment_method == "Cash on Arrival"),
+                    extras=[]
+                )
+                if room_url:
+                    st.success("✅ Room booking link generated.")
+                    st.markdown(f"[💳 Pay for Room Booking]({room_url})", unsafe_allow_html=True)
+                else:
+                    st.error("⚠️ Room payment failed to generate.")
+
+            if any_addon_selected:
+                extra_keys = [AVAILABLE_EXTRAS[item] for item in selected_extras]
+                addon_url = create_addon_checkout_session(
+                    session_id=st.session_state.session_id,
+                    extras=extra_keys
+                )
+                if addon_url:
+                    st.success("🧾 Add-on payment link generated.")
+                    st.markdown(f"[💳 Pay for Add-ons]({addon_url})", unsafe_allow_html=True)
+                else:
+                    st.error("⚠️ Add-on payment failed to generate.")
+
+            if not room_selected and not any_addon_selected:
+                st.warning("⚠️ Please select a room or at least one add-on to proceed.")

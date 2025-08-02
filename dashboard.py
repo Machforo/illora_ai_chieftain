@@ -14,8 +14,8 @@ LOG_FILE = "bot.log"
 SUMMARY_PATH = 'summary_log.jsonl'
 
 # --- Set page title and layout ---
-st.set_page_config(page_title="LUXORIA SUITES – Admin Console", layout="wide")
-st.title("🏨 LUXORIA SUITES – Concierge AI Admin Dashboard")
+st.set_page_config(page_title="ILLORA_RETREATS – Admin Console", layout="wide")
+st.title("🏨 Illora Retreats – Concierge AI Admin Dashboard")
 st.markdown("_Monitor interactions, understand guest needs, and enhance luxury service._")
 
 # --- Check for log file existence ---
@@ -105,7 +105,7 @@ st.subheader("📜 Guest Interaction Log")
 st.dataframe(filtered_df)
 
 # --- 📥 CSV Download ---
-st.download_button("📥 Download Logs as CSV", filtered_df.to_csv(index=False), file_name="LUXORIA_logs.csv")
+st.download_button("📥 Download Logs as CSV", filtered_df.to_csv(index=False), file_name="ILLORA_retreats_logs.csv")
 
 # --- 🧠 Summaries & Follow-up Emails ---
 st.subheader("🧠 Guest Session Summaries & Follow-up Emails")
@@ -134,7 +134,7 @@ if os.path.exists(SUMMARY_PATH):
         st.download_button(
             "📥 Download All Summaries",
             summary_df.to_csv(index=False),
-            file_name="LUXORIA_session_summaries.csv"
+            file_name="ILLORA_Retreats_session_summaries.csv"
         )
     else:
         st.info("No guest session summaries generated yet.")

@@ -60,7 +60,7 @@ import joblib
 pipeline = joblib.load("intent_classifier_model.pkl")
 
 # Example query
-query = "payment"
+query = "hello"
 intent = pipeline.predict([query])[0]
 
 print(f"Predicted Intent: {intent}")

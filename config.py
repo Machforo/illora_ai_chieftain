@@ -15,4 +15,4 @@ class Config:
     STRIPE_SECRET_KEY= os.getenv("STRIPE_SECRET_KEY")
 
     # path to hotel faq data
-    CSV_DATA_PATH = "hotel_faq.csv"
+    CSV_DATA_PATH = "qa_pairs.csv"

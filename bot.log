@@ -1196,3 +1196,75 @@ Would you like more information on any of these services or perhaps our honeymoo
 2025-07-25 18:03:40,063 | QAAgent | INFO | Processed query at LUXORIA SUITES: 7
 2025-07-25 18:03:47,508 | QAAgent | INFO | Processed query at LUXORIA SUITES: 1
 2025-07-25 18:03:54,860 | QAAgent | INFO | Processed query at LUXORIA SUITES: Yes
+2025-08-02 22:54:26,888 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-02 22:55:08,534 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-02 22:55:12,238 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-02 22:55:34,567 | QAAgent | INFO | Processed query at ILLORA RETREATS: hii
+2025-08-02 22:55:34,567 | web | INFO | Web | 175b568f-c6a4-443a-80e7-9b4d108c2375 | hii | Welcome to Ilora Retreats. How may I assist you today? | Intent: goodbye | Guest: True
+2025-08-02 22:56:02,807 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to book a spa
+2025-08-02 22:56:02,807 | web | INFO | Web | 175b568f-c6a4-443a-80e7-9b4d108c2375 | I want to book a spa | Our Ilora Spa offers a serene oasis for rejuvenation. To book a treatment, please contact our spa concierge at spa@ilora-retreats.com or call us at +1 555 123 4567. We'll be happy to assist you in selecting the perfect experience tailored to your needs. | Intent: ask_spa_booking | Guest: True
+2025-08-02 22:56:23,507 | QAAgent | INFO | Processed query at ILLORA RETREATS: what about the pricing of the spa
+2025-08-02 22:56:23,507 | web | INFO | Web | 175b568f-c6a4-443a-80e7-9b4d108c2375 | what about the pricing of the spa | Our spa treatments are tailored to provide a serene and rejuvenating experience. For pricing and package options, I recommend contacting our spa concierge at spa@ilora-retreats.com or visiting our website for more information. | Intent: ask_room_types | Guest: True
+2025-08-02 22:57:37,556 | QAAgent | INFO | Processed query at ILLORA RETREATS: spa massage
+2025-08-02 22:57:37,556 | web | INFO | Web | 175b568f-c6a4-443a-80e7-9b4d108c2375 | spa massage | Our spa offers a range of rejuvenating massage therapies, including Swedish, deep tissue, and aromatherapy. To book a treatment, please contact our spa concierge at spa@ilora-retreats.com or visit our spa desk. | Intent: ask_spa_booking | Guest: True
+2025-08-02 22:58:09,681 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to make a payment
+2025-08-02 22:58:09,681 | web | INFO | Web | 175b568f-c6a4-443a-80e7-9b4d108c2375 | I want to make a payment | You can make a payment by contacting our sales team at sales@ilora-retreats.com or by logging into your account on our website to access your booking details and payment options. | Intent: payment_request | Guest: True
+2025-08-02 23:14:09,125 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-02 23:14:32,407 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-02 23:14:35,176 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-02 23:15:01,643 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hii
+2025-08-02 23:15:01,643 | web | INFO | Web | f4f8c0f9-0027-4852-81d0-21c212932816 | Hii | Welcome to Ilora Retreats. How may I assist you today? | Intent: goodbye
+2025-08-02 23:15:23,927 | QAAgent | INFO | Processed query at ILLORA RETREATS: Can you let me know about the hotel
+2025-08-02 23:15:23,928 | web | INFO | Web | f4f8c0f9-0027-4852-81d0-21c212932816 | Can you let me know about the hotel | Welcome to Ilora Retreats. We're delighted to have you with us. Our hotel offers luxurious accommodations, gourmet dining options, rejuvenating spa treatments, and exceptional personalized hospitality. Would you like more information on our amenities or services? | Intent: goodbye
+2025-08-02 23:18:11,583 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-02 23:18:34,516 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-02 23:18:37,270 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-02 23:18:49,764 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hii
+2025-08-02 23:18:49,764 | web | INFO | Web | 64f67d78-a990-4c28-8018-2a3cceebfc48 | Hii | Welcome to Ilora Retreats. How may I assist you today? | Intent: goodbye
+2025-08-02 23:22:32,174 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-02 23:22:44,378 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-02 23:22:45,679 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-02 23:22:57,253 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hello
+2025-08-02 23:22:57,254 | web | INFO | Web | 7206372f-2788-4d31-b8c0-d25afc9f101c | Hello | Welcome to Ilora Retreats. How may I assist you today? | Intent: greet | Guest: True
+2025-08-02 23:23:05,240 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to book a spa
+2025-08-02 23:23:05,240 | web | INFO | Web | 7206372f-2788-4d31-b8c0-d25afc9f101c | I want to book a spa | Our Ilora Spa offers a serene oasis for rejuvenation. To book a treatment, please contact our spa concierge at spa@ilora-retreats.com or call us at +1 555 123 4567. We'll be happy to assist you in selecting the perfect experience tailored to your needs. | Intent: ask_spa_booking | Guest: True
+2025-08-02 23:23:14,765 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to make a payment
+2025-08-02 23:23:14,765 | web | INFO | Web | 7206372f-2788-4d31-b8c0-d25afc9f101c | I want to make a payment | You can make a payment by contacting our sales team at sales@ilora-retreats.com or by logging into your account on our website to access your booking details and payment options. | Intent: payment_request | Guest: True
+2025-08-02 23:28:28,399 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-02 23:28:48,017 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-02 23:28:49,610 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-02 23:29:01,925 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hello
+2025-08-02 23:29:01,925 | web | INFO | Web | 84024d49-9faf-48bd-a032-55f8607ad219 | Hello | Welcome to Ilora Retreats. How may I assist you today? | Intent: payment_request
+2025-08-02 23:29:18,183 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hello
+2025-08-02 23:29:18,184 | web | INFO | Web | 84024d49-9faf-48bd-a032-55f8607ad219 | Hello | Welcome to Ilora Retreats. How may I assist you today? | Intent: payment_request
+2025-08-02 23:29:31,290 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to know about your hote;
+2025-08-02 23:29:31,291 | web | INFO | Web | 84024d49-9faf-48bd-a032-55f8607ad219 | I want to know about your hote; | Welcome to Ilora Retreats. We're a luxurious haven offering elegant accommodations, gourmet dining, rejuvenating spa treatments, and personalized hospitality. Our amenities include a fully-equipped gym, pool access, and 24x7 room service. We also feature meeting spaces for your business needs. Would you like more information on any of these services? | Intent: payment_request
+2025-08-02 23:30:31,706 | QAAgent | INFO | Processed query at ILLORA RETREATS: Can you let me know what type of  rooms do you have
+2025-08-02 23:30:31,707 | web | INFO | Web | 84024d49-9faf-48bd-a032-55f8607ad219 | Can you let me know what type of  rooms do you have | We offer a range of luxurious rooms and suites, including Deluxe Rooms, Executive Suites, and our signature ILLORA Suites, each designed to provide unparalleled comfort and elegance. Would you like more information on our room categories or specific amenities? | Intent: payment_request
+2025-08-02 23:36:59,208 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-02 23:37:11,179 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-02 23:37:12,468 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-02 23:37:24,156 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hii
+2025-08-02 23:37:24,156 | web | INFO | Web | f999d058-0cfe-48a3-9a12-8b602d80db53 | Hii | Welcome to Ilora Retreats. How may I assist you today? | Intent: payment_request
+2025-08-02 23:37:59,668 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-02 23:38:24,629 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-02 23:38:27,616 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-02 23:39:06,691 | QAAgent | INFO | Processed query at ILLORA RETREATS: hii
+2025-08-02 23:39:06,692 | web | INFO | Web | 1997dbac-118c-41c2-9946-f068e584e3f3 | hii | Welcome to Ilora Retreats. How may I assist you today? | Intent: greet
+2025-08-02 23:39:26,032 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to book and pay for a spa
+2025-08-02 23:39:26,033 | web | INFO | Web | 1997dbac-118c-41c2-9946-f068e584e3f3 | I want to book and pay for a spa | Welcome to Ilora Retreats. To book and pay for a spa treatment, please contact our Spa Concierge at spa@ilora-retreats.com or call us at +1 (555) 123-4567. We'll be happy to assist you in selecting the perfect treatment and arrange for payment. | Intent: payment_request
+2025-08-02 23:47:51,966 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-02 23:48:07,490 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-02 23:48:08,687 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-02 23:48:12,443 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-02 23:48:28,993 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-02 23:48:30,335 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-02 23:52:21,003 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-02 23:52:37,089 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-02 23:52:39,097 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-02 23:52:42,330 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-02 23:52:58,268 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-02 23:52:59,432 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-03 00:04:34,917 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-03 00:04:52,457 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-03 00:04:54,315 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.

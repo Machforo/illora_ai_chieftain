@@ -29,10 +29,10 @@ class ConciergeBot:
                 retriever=vector_store.as_retriever()
             )
 
-            logger.info("LUXORIA SUITES QA agent initialized successfully using Groq.")
+            logger.info("ILLORA Retreats QA agent initialized successfully using Groq.")
 
         except Exception as e:
-            logger.error(f"Error initializing LUXORIA SUITES QA agent: {e}")
+            logger.error(f"Error initializing Illora retreats QA agent: {e}")
             raise
 
     def ask(self, query: str, user_type) -> str:
@@ -46,28 +46,28 @@ class ConciergeBot:
             if user_type == "non-guest":
                 if any(term in lower_query for term in restricted_services):
                     return (
-                        "We're sorry, this service is exclusive to *guests* at LUXORIA SUITES.\n"
+                        "We're sorry, this service is exclusive to *guests* at ILLORA RETREATS.\n"
                         "Feel free to explore our dining options, events, and lobby amenities!"
                     )
 
             # Custom prompt with hotel branding
             luxoria_context = (
-                "You are a knowledgeable, polite, and concise concierge assistant at *LUXORIA SUITES*, "
+                "You are a knowledgeable, polite, and concise concierge assistant at *ILLORA RETREATS*, "
                 "a premium hotel known for elegant accommodations, gourmet dining, rejuvenating spa treatments, "
                 "fully-equipped gym, pool access, 24x7 room service, meeting spaces, and personalized hospitality. "
-                "Always provide responses that are short, informative, and relevant to the LUXORIA SUITES experience. "
+                "Always provide responses that are short, informative, and relevant to the ILLORA RETREATS experience. "
                 "Avoid generic replies — tailor your responses to reflect the hotel’s luxury and exclusivity. "
                 "Only elaborate when the guest explicitly asks for more details.\n\n"
                 f"Guest Query: {query}"
             )
 
             response = self.qa_chain.run(luxoria_context)
-            logger.info(f"Processed query at LUXORIA SUITES: {query}")
+            logger.info(f"Processed query at ILLORA RETREATS: {query}")
             return response
 
         except Exception as e:
-            logger.error(f"Error processing query at LUXORIA SUITES '{query}': {e}")
+            logger.error(f"Error processing query at ILLORA RETREATS '{query}': {e}")
             return (
                 "We're sorry, there was an issue while assisting you. "
-                "Please feel free to ask again or contact the LUXORIA SUITES front desk for immediate help."
+                "Please feel free to ask again or contact the ILLORA RETREATS front desk for immediate help."
             )
