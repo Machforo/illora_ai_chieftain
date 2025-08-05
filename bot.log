@@ -1268,3 +1268,29 @@ Would you like more information on any of these services or perhaps our honeymoo
 2025-08-03 00:04:34,917 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
 2025-08-03 00:04:52,457 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
 2025-08-03 00:04:54,315 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-05 17:34:43,440 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-05 17:34:54,869 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-05 17:34:56,165 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-05 17:35:25,545 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hello
+2025-08-05 17:35:25,545 | web | INFO | Web | 64ca36b3-fce2-4642-b2b5-d2784cae05d7 | Hello | Welcome to Ilora Retreats. How may I assist you today? | Intent: greet | Guest: True
+2025-08-05 17:40:22,232 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-05 17:40:32,297 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-05 17:40:33,171 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-05 17:40:51,655 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hello
+2025-08-05 17:40:51,656 | web | INFO | Web | b2da4c48-546b-4140-af79-c6c634194789 | Hello | Welcome to Ilora Retreats. How may I assist you today? | Intent: greet
+2025-08-05 17:41:02,225 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want the details of the hotel
+2025-08-05 17:41:02,226 | web | INFO | Web | b2da4c48-546b-4140-af79-c6c634194789 | I want the details of the hotel | Welcome to Ilora Retreats. We're delighted to have you with us. Our hotel offers:
+
+- Elegant accommodations with plush amenities
+- Gourmet dining options at our signature restaurants
+- Rejuvenating spa treatments for ultimate relaxation
+- State-of-the-art gym and pool access for fitness enthusiasts
+- 24/7 room service for your convenience
+- Luxurious meeting spaces for events and gatherings
+- Personalized hospitality to ensure a seamless stay
+
+For more information or to book a room, please contact sales@ilora-retreats.com. | Intent: ask_room_pricing
+2025-08-05 17:41:36,977 | QAAgent | INFO | Processed query at ILLORA RETREATS: can you inform me about the dining opportunities
+2025-08-05 17:41:36,977 | web | INFO | Web | b2da4c48-546b-4140-af79-c6c634194789 | can you inform me about the dining opportunities | Welcome to Ilora Retreats. We're delighted to offer an exquisite culinary experience at our signature restaurant, Azure, serving gourmet cuisine with a focus on seasonal ingredients. For a more intimate setting, our private dining room, Celestia, is available for personalized meals. Room service is also available 24/7 for your convenience. Would you like more information on our menu or dining options? | Intent: ask_room_types
+2025-08-05 17:41:45,616 | QAAgent | INFO | Processed query at ILLORA RETREATS: what is the menu
+2025-08-05 17:41:45,616 | web | INFO | Web | b2da4c48-546b-4140-af79-c6c634194789 | what is the menu | Our culinary team has crafted a delectable menu that showcases the finest local and international flavors. For a detailed look, I recommend visiting our website at www.ilora-retreats.com or contacting our culinary team directly at sales@ilora-retreats.com. Alternatively, you may also reach out to us at +254-714-543-506 for a personalized menu consultation. | Intent: ask_food

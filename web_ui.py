@@ -12,6 +12,7 @@ from intent_classifier import classify_intent
 # --- Branding ---
 LOGO_PATH = "logo.jpg"
 QR_LINK = "https://machforo-illora-ai-chieftain-web-ui-mll3bb.streamlit.app/"
+WHATSAPP_LINK = "https://wa.me/919876543210"  # Replace with actual WhatsApp number or group link
 
 # --- Add-on Options ---
 AVAILABLE_EXTRAS = {
@@ -31,7 +32,7 @@ def generate_qr_code(link: str) -> Image.Image:
     qr.make(fit=True)
     return qr.make_image(fill="black", back_color="white")
 
-# --- Session State ---
+# --- Session State Initialization ---
 if "bot" not in st.session_state:
     st.session_state.bot = ConciergeBot()
 if "chat_history" not in st.session_state:
@@ -43,35 +44,52 @@ if "guest_status" not in st.session_state:
 if "pending_addon_request" not in st.session_state:
     st.session_state.pending_addon_request = []
 
-# --- Layout ---
-st.set_page_config(page_title="ILLORA Retreat – AI Concierge", page_icon="🛎️")
-if os.path.exists(LOGO_PATH):
-    st.image(LOGO_PATH, width=150)
+# --- Page Config ---
+st.set_page_config(
+    page_title="ILLORA Retreat – AI Concierge",
+    page_icon="🛎️",
+    layout="wide"
+)
+
+# --- Sidebar: Logo, Guest Identity, WhatsApp QR ---
+with st.sidebar:
+    if os.path.exists(LOGO_PATH):
+        st.image(LOGO_PATH, width=180)
+    st.markdown("### 🧾 Guest Status")
+    with st.form("guest_status_form"):
+        guest_option = st.radio("Are you staying at ILLORA Retreat?", ["Yes", "No"])
+        submit_guest = st.form_submit_button("Submit")
+        if submit_guest:
+            st.session_state.guest_status = guest_option
+
+    st.markdown("---")
+    st.markdown("### 📞 Connect on WhatsApp")
+    wa_qr = generate_qr_code(WHATSAPP_LINK)
+    buf = BytesIO()
+    wa_qr.save(buf, format="PNG")
+    st.image(buf.getvalue(), width=160, caption="Chat with us on WhatsApp")
+
+# --- Header Section ---
 st.title("🏨 ILLORA Retreat – Your AI Concierge")
-st.markdown("_Welcome to ILLORA Retreat, where luxury meets the wilderness._")
+st.markdown("#### _Welcome to ILLORA Retreat, where luxury meets the wilderness._")
+st.markdown("---")
 
-# --- Guest Identity ---
-with st.sidebar.form("guest_status_form"):
-    st.markdown("### 🧾 Who are you?")
-    guest_option = st.radio("Are you staying at ILLORA Retreat?", ["Yes", "No"])
-    submit_guest = st.form_submit_button("Submit")
-    if submit_guest:
-        st.session_state.guest_status = guest_option
-
-# --- QR Display ---
-st.subheader("📱 Scan to Open on Mobile")
+# --- QR to Open on Mobile ---
+st.markdown("### 📱 Access this Assistant on Mobile")
 qr_img = generate_qr_code(QR_LINK)
 qr_buf = BytesIO()
 qr_img.save(qr_buf, format="PNG")
-st.image(qr_buf.getvalue(), width=180, caption="Scan to explore ILLORA Retreat")
+st.image(qr_buf.getvalue(), width=180, caption="Scan to open on your phone")
 
-# --- Chat History ---
+st.markdown("---")
+
+# --- Chat History Display ---
 for role, msg in st.session_state.chat_history:
     with st.chat_message(role):
         st.markdown(msg)
 
 # --- Chat Input ---
-st.markdown("### 💬 Type your message below:")
+st.markdown("### 💬 Concierge Chat")
 user_input = st.chat_input("Ask me anything about ILLORA Retreat")
 coming_from = "Web"
 
@@ -82,7 +100,6 @@ if user_input:
     st.chat_message("user").markdown(user_input)
     st.session_state.chat_history.append(("user", user_input))
 
-    # Match add-on keywords
     message_lower = user_input.lower()
     addon_matches = [key for key in AVAILABLE_EXTRAS if key.lower() in message_lower]
     st.session_state.pending_addon_request = addon_matches if addon_matches else []
@@ -97,8 +114,9 @@ if user_input:
     st.chat_message("assistant").markdown(response)
     st.session_state.chat_history.append(("assistant", response))
 
-# --- Ask for confirmation (addon payment) ---
+# --- Add-on Confirmation ---
 if st.session_state.get("pending_addon_request"):
+    st.markdown("### 🧾 Confirm Add-on Services")
     st.info(f"Would you like to pay for the following service(s)?\n👉 {', '.join(st.session_state.pending_addon_request)}")
 
     col1, col2 = st.columns(2)
@@ -123,13 +141,13 @@ if st.session_state.get("pending_addon_request"):
     if cancel:
         st.session_state.pending_addon_request = []
 
-# --- Room/Addon Payment Form (only if intent == payment_request) ---
+# --- Room/Addon Payment Form ---
 if st.session_state.get("predicted_intent") == "payment_request" and not st.session_state.get("pending_addon_request"):
-    st.info("You can book a room and/or pay for spa or extras below.")
+    st.markdown("### 🛏️ Book a Room / Add-on Services")
 
     with st.form("booking_form"):
         room_type = st.selectbox("Room Type (optional)", ["None", "Standard", "Deluxe", "Executive", "Family", "Suite"])
-        nights = st.number_input("Number of nights (optional)", min_value=1, step=1, value=1)
+        nights = st.number_input("Number of nights", min_value=1, step=1, value=1)
         payment_method = st.radio("Payment Method", ["Online", "Cash on Arrival"])
 
         price_map = {
@@ -144,12 +162,11 @@ if st.session_state.get("predicted_intent") == "payment_request" and not st.sess
             base_price = price_map[room_type] * nights
             st.markdown(f"💰 **Room Total: ₹{base_price}**")
         else:
-            st.markdown("💡 You can skip room booking and only pay for spa or other add-ons.")
+            st.markdown("💡 You can skip room booking and only pay for add-ons.")
 
-        st.markdown("---")
-        st.markdown("### 🧖‍♀️ Optional Add-ons (Billed Separately)")
+        st.markdown("### 🧖‍♀️ Optional Add-ons")
         selected_extras = st.multiselect("Choose your add-ons:", list(AVAILABLE_EXTRAS.keys()))
-        submit_booking = st.form_submit_button("✅ Proceed with Payment")
+        submit_booking = st.form_submit_button("✅ Proceed")
 
         if submit_booking:
             room_selected = room_type != "None"
@@ -167,7 +184,7 @@ if st.session_state.get("predicted_intent") == "payment_request" and not st.sess
                     st.success("✅ Room booking link generated.")
                     st.markdown(f"[💳 Pay for Room Booking]({room_url})", unsafe_allow_html=True)
                 else:
-                    st.error("⚠️ Room payment failed to generate.")
+                    st.error("⚠️ Room payment link generation failed.")
 
             if any_addon_selected:
                 extra_keys = [AVAILABLE_EXTRAS[item] for item in selected_extras]
@@ -179,7 +196,7 @@ if st.session_state.get("predicted_intent") == "payment_request" and not st.sess
                     st.success("🧾 Add-on payment link generated.")
                     st.markdown(f"[💳 Pay for Add-ons]({addon_url})", unsafe_allow_html=True)
                 else:
-                    st.error("⚠️ Add-on payment failed to generate.")
+                    st.error("⚠️ Add-on payment link generation failed.")
 
             if not room_selected and not any_addon_selected:
                 st.warning("⚠️ Please select a room or at least one add-on to proceed.")
