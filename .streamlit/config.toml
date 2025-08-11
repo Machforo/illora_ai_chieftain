@@ -1,0 +1,32 @@
+[theme]
+base="light"
+primaryColor="#4CAF50"
+backgroundColor="#ffffff"
+secondaryBackgroundColor="#f7f7f7"
+textColor="#2E4053"
+font="sans serif"
+
+[branding]
+app_name = "ILLORA Retreat – AI Concierge"
+logo_path = "logo.jpg"
+background_image = "illora_retreats.jpg"
+
+[links]
+qr_link = "https://machforo-illora-ai-chieftain-web-ui-mll3bb.streamlit.app/"
+whatsapp_link = "https://wa.me/919876543210"
+
+[addons]
+Spa_Massage = "spa_massage"
+Aromatherapy = "spa_aromatherapy"
+Hot_Stone_Therapy = "spa_hot_stone"
+Mocktail = "mocktail"
+Juice = "juice"
+Cheese_Platter = "cheese_platter"
+Chocolate_Brownie = "chocolate_brownie"
+
+[rooms]
+Standard = 12500
+Deluxe = 17000
+Executive = 23000
+Family = 27500
+Suite = 34000

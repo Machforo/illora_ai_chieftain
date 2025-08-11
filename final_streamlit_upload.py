@@ -166,3 +166,6 @@ elif mode == "📄 Upload Hotel Documents":
 
         if failed:
             st.warning(f"Some files failed to process: {', '.join(failed)}")
+
+
+## qa_pairs database --> new database --_feed

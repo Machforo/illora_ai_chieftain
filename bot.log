@@ -1294,3 +1294,133 @@ For more information or to book a room, please contact sales@ilora-retreats.com.
 2025-08-05 17:41:36,977 | web | INFO | Web | b2da4c48-546b-4140-af79-c6c634194789 | can you inform me about the dining opportunities | Welcome to Ilora Retreats. We're delighted to offer an exquisite culinary experience at our signature restaurant, Azure, serving gourmet cuisine with a focus on seasonal ingredients. For a more intimate setting, our private dining room, Celestia, is available for personalized meals. Room service is also available 24/7 for your convenience. Would you like more information on our menu or dining options? | Intent: ask_room_types
 2025-08-05 17:41:45,616 | QAAgent | INFO | Processed query at ILLORA RETREATS: what is the menu
 2025-08-05 17:41:45,616 | web | INFO | Web | b2da4c48-546b-4140-af79-c6c634194789 | what is the menu | Our culinary team has crafted a delectable menu that showcases the finest local and international flavors. For a detailed look, I recommend visiting our website at www.ilora-retreats.com or contacting our culinary team directly at sales@ilora-retreats.com. Alternatively, you may also reach out to us at +254-714-543-506 for a personalized menu consultation. | Intent: ask_food
+2025-08-08 23:50:05,720 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-08 23:50:24,447 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-08 23:50:25,990 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-08 23:58:41,708 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-08 23:58:56,769 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-08 23:58:58,170 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-08 23:59:24,322 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-08 23:59:34,915 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-08 23:59:35,913 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 00:02:58,574 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 00:03:05,175 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 00:03:05,716 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 00:03:34,613 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 00:03:44,471 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 00:03:45,624 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 00:04:47,482 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 00:04:54,046 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 00:04:54,460 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 00:05:13,817 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 00:05:19,884 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 00:05:20,342 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 00:09:50,841 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 00:09:59,322 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 00:10:00,649 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 00:19:57,603 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 00:20:07,863 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 00:20:08,780 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 00:20:21,205 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hii
+2025-08-09 00:20:21,206 | web | INFO | Web | 379f0a15-2512-4083-8ba4-da243a246984 | Hii | Welcome to Ilora Retreats. How may I assist you today? | Intent: greet
+2025-08-09 00:54:26,193 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 00:54:35,364 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 00:54:36,739 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 00:57:22,478 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 00:57:28,686 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 00:57:29,390 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 00:57:55,747 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 00:58:05,305 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 00:58:06,684 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 00:59:52,734 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 00:59:59,151 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 00:59:59,665 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 01:06:37,828 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 01:06:47,061 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 01:06:48,090 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 01:07:27,111 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 01:07:33,761 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 01:07:34,298 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 01:08:49,811 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 01:08:56,849 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 01:08:57,694 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 01:12:20,949 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 01:12:27,072 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 01:12:27,580 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 01:13:08,302 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 01:13:18,002 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 01:13:19,399 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 01:16:34,368 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 01:16:41,189 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 01:16:41,658 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 01:17:12,232 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 01:17:20,808 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 01:17:22,122 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 01:27:07,056 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 01:27:13,577 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 01:27:14,010 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 19:58:50,752 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 19:59:13,258 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 19:59:16,902 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 19:59:51,059 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 20:00:03,061 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 20:00:04,409 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 20:00:15,342 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 20:00:26,475 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 20:00:27,949 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 20:00:53,597 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 20:01:03,886 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 20:01:05,186 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 20:01:19,603 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 20:01:30,864 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 20:01:32,312 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 21:50:56,242 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-09 21:51:04,967 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-09 21:51:06,632 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-09 21:51:08,215 | QAAgent | ERROR | Error processing query at ILLORA RETREATS 'hello': Connection error.
+2025-08-09 21:51:08,215 | web | INFO | Web | 1f17a0e6-8331-4177-b8bf-cd2c11c48421 | hello | We're sorry, there was an issue while assisting you. Please feel free to ask again or contact the ILLORA RETREATS front desk for immediate help. | Intent: greet
+2025-08-09 21:51:30,666 | QAAgent | INFO | Processed query at ILLORA RETREATS: hello
+2025-08-09 21:51:30,666 | web | INFO | Web | 1f17a0e6-8331-4177-b8bf-cd2c11c48421 | hello | Welcome to Ilora Retreats. How may I assist you today? | Intent: greet
+2025-08-09 21:51:42,916 | QAAgent | INFO | Processed query at ILLORA RETREATS: how you doijn
+2025-08-09 21:51:42,916 | web | INFO | Web | 1f17a0e6-8331-4177-b8bf-cd2c11c48421 | how you doijn | I'm happy to assist you. It seems your message was cut off. If you could rephrase or provide more context, I'd be delighted to help. | Intent: payment_request
+2025-08-10 11:31:55,328 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-10 11:32:17,176 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-10 11:32:20,412 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-10 11:33:02,706 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hello
+2025-08-10 11:34:38,997 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-10 11:34:50,561 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-10 11:34:51,900 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-10 11:34:58,783 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hello
+2025-08-10 11:34:58,792 | web | INFO | Web | 2a95c7f7-c2e1-474b-8242-0a40a2ba592c | Hello | Welcome to Ilora Retreats. How may I assist you today? | Intent: greet
+2025-08-10 11:35:20,209 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to make a booking
+2025-08-10 11:35:20,209 | web | INFO | Web | 2a95c7f7-c2e1-474b-8242-0a40a2ba592c | I want to make a booking | Welcome to Ilora Retreats. To make a booking, please contact sales@ilora-retreats.com for more information. We'll be delighted to assist you in selecting the perfect accommodations and amenities to suit your needs. | Intent: payment_request
+2025-08-10 12:01:13,205 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-10 12:01:34,173 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-10 12:01:36,673 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-10 12:01:45,402 | QAAgent | INFO | Processed query at ILLORA RETREATS: Hello
+2025-08-10 12:01:45,406 | web | INFO | Web | 1e3c1466-590e-4788-9bed-dc863318137e | Hello | Welcome to Ilora Retreats. How may I assist you today? | Intent: greet
+2025-08-10 12:01:56,319 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to make a booking
+2025-08-10 12:01:56,319 | web | INFO | Web | 1e3c1466-590e-4788-9bed-dc863318137e | I want to make a booking | Welcome to Ilora Retreats. To make a booking, please contact sales@ilora-retreats.com for more information. We'll be delighted to assist you in selecting the perfect accommodations and amenities to suit your needs. | Intent: payment_request
+2025-08-10 12:04:52,705 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-10 12:05:05,155 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-10 12:05:06,524 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-10 12:05:18,137 | QAAgent | INFO | Processed query at ILLORA RETREATS: hello
+2025-08-10 12:05:18,144 | web | INFO | Web | 00ffa00e-1919-4ab1-85d3-d73170341828 | hello | Welcome to Ilora Retreats. How may I assist you today? | Intent: greet
+2025-08-10 12:05:27,310 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to book a room
+2025-08-10 12:05:27,310 | web | INFO | Web | 00ffa00e-1919-4ab1-85d3-d73170341828 | I want to book a room | Welcome to Ilora Retreats. We have a variety of luxurious rooms to suit your preferences. May I recommend our Deluxe Room or our opulent Suite? Please contact sales@ilora-retreats.com for more information and to book your stay. | Intent: payment_request
+2025-08-10 12:11:11,244 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-10 12:11:25,259 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-10 12:11:26,655 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-10 12:11:33,887 | QAAgent | INFO | Processed query at ILLORA RETREATS: hello
+2025-08-10 12:11:33,887 | web | INFO | Web | 67892e6b-4e76-4d6d-91af-aa3901b4d93f | hello | Welcome to Ilora Retreats. How may I assist you today? | Intent: greet | Guest: True
+2025-08-10 12:11:40,816 | QAAgent | INFO | Processed query at ILLORA RETREATS: lets book a room
+2025-08-10 12:11:40,816 | web | INFO | Web | 67892e6b-4e76-4d6d-91af-aa3901b4d93f | lets book a room | Welcome to Ilora Retreats. We have a variety of luxurious rooms to choose from, each offering stunning views and exceptional amenities. May I recommend our Deluxe Room or our opulent Suite? Please let me know your preference, and I'll be happy to assist you with booking. | Intent: book_room | Guest: True
+2025-08-10 12:11:53,893 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to book a room
+2025-08-10 12:11:53,896 | web | INFO | Web | 67892e6b-4e76-4d6d-91af-aa3901b4d93f | I want to book a room | Welcome to Ilora Retreats. We have a variety of luxurious rooms to suit your preferences. May I recommend our Deluxe Room or our opulent Suite? Please contact sales@ilora-retreats.com for more information and to book your stay. | Intent: payment_request | Guest: True
+2025-08-10 12:14:39,383 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-10 12:14:59,324 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-10 12:15:02,482 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-10 12:15:19,555 | QAAgent | INFO | Processed query at ILLORA RETREATS: hemloo
+2025-08-10 12:15:19,555 | web | INFO | Web | 2cfd31ff-37ed-4d1f-86cf-e5eee64e9a5b | hemloo | I'm happy to assist you. However, it seems you may have entered a query by mistake. If you're looking for information about our retreat, I'd be delighted to help. Could you please provide more context or ask a specific question about your stay or our amenities? | Intent: greet
+2025-08-10 12:15:31,507 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to book a room
+2025-08-10 12:15:31,507 | web | INFO | Web | 2cfd31ff-37ed-4d1f-86cf-e5eee64e9a5b | I want to book a room | Welcome to Ilora Retreats. We have a variety of luxurious rooms to suit your preferences. May I recommend our Deluxe Room or our opulent Suite? Please contact sales@ilora-retreats.com for more information and to book your stay. | Intent: payment_request
