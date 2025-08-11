@@ -10,9 +10,9 @@ YOUR_DOMAIN = 'http://localhost:8501'  # Change for production
 
 # Room pricing (INR per night)
 ROOM_PRICING = {
-    "standard": 12500,
-    "deluxe": 17000,
-    "executive": 23000,
+    "Safari Tent": 12000,
+    "Star Bed Suite": 18000,
+    "double room": 10000,
     "suite": 34000,
     "family": 27500
 }
@@ -166,3 +166,5 @@ def create_addon_checkout_session(session_id, extras):
     except Exception as e:
         print(f"[Stripe Add-on Error] {e}")
         return None
+
+

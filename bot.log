@@ -1424,3 +1424,33 @@ For more information or to book a room, please contact sales@ilora-retreats.com.
 2025-08-10 12:15:19,555 | web | INFO | Web | 2cfd31ff-37ed-4d1f-86cf-e5eee64e9a5b | hemloo | I'm happy to assist you. However, it seems you may have entered a query by mistake. If you're looking for information about our retreat, I'd be delighted to help. Could you please provide more context or ask a specific question about your stay or our amenities? | Intent: greet
 2025-08-10 12:15:31,507 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to book a room
 2025-08-10 12:15:31,507 | web | INFO | Web | 2cfd31ff-37ed-4d1f-86cf-e5eee64e9a5b | I want to book a room | Welcome to Ilora Retreats. We have a variety of luxurious rooms to suit your preferences. May I recommend our Deluxe Room or our opulent Suite? Please contact sales@ilora-retreats.com for more information and to book your stay. | Intent: payment_request
+2025-08-11 11:55:33,849 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-11 11:55:52,633 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-11 11:55:54,459 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-11 12:27:55,358 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-11 12:28:03,618 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-11 12:28:04,765 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-11 12:28:13,498 | QAAgent | INFO | Processed query at ILLORA RETREATS: I want to book a room
+2025-08-11 12:28:13,505 | web | INFO | Web | 0ac3c7cc-f4dc-4eb9-a357-c0701ca88900 | I want to book a room | Welcome to Ilora Retreats. We have a variety of luxurious rooms to suit your preferences. May I recommend our Deluxe Suite or our opulent Presidential Suite? Please contact sales@ilora-retreats.com for more information and to book your stay. | Intent: payment_request
+2025-08-11 13:04:03,415 | VectorStoreService | INFO | Loaded 1139 documents from qa_pairs.csv
+2025-08-11 13:04:25,406 | VectorStoreService | INFO | Vector store created with Hugging Face embeddings.
+2025-08-11 13:04:27,884 | QAAgent | INFO | ILLORA Retreats QA agent initialized successfully using Groq.
+2025-08-11 13:07:48,731 | QAAgent | INFO | Processed query at ILLORA RETREATS: hii
+2025-08-11 13:07:48,731 | web | INFO | Web | 03d6445b-9739-4bb2-91ea-ea030b404a47 | hii | Welcome to Ilora Retreats. How may I assist you today? | Intent: greet
+2025-08-11 13:08:04,839 | QAAgent | INFO | Processed query at ILLORA RETREATS: can you give details about the hotel
+2025-08-11 13:08:04,839 | web | INFO | Web | 03d6445b-9739-4bb2-91ea-ea030b404a47 | can you give details about the hotel | Welcome to Ilora Retreats. We're delighted to have you with us. Our hotel offers luxurious accommodations, gourmet dining options, rejuvenating spa treatments, a fully-equipped gym, and access to our serene pool. Additionally, our 24/7 room service ensures your every need is met. We also have spacious meeting areas for events and conferences. Our personalized hospitality team is dedicated to making your stay truly unforgettable. | Intent: payment_request
+2025-08-11 13:08:32,549 | QAAgent | INFO | Processed query at ILLORA RETREATS: do you have a pool area in your hotel
+2025-08-11 13:08:32,549 | web | INFO | Web | 03d6445b-9739-4bb2-91ea-ea030b404a47 | do you have a pool area in your hotel | Yes, we have a serene pool area with breathtaking views, perfect for relaxation and rejuvenation. Our pool is available for guests to enjoy from 6:00 AM to 10:00 PM. | Intent: ask_amenities
+2025-08-11 13:08:57,970 | QAAgent | INFO | Processed query at ILLORA RETREATS: what other amenities you offer
+2025-08-11 13:08:57,970 | web | INFO | Web | 03d6445b-9739-4bb2-91ea-ea030b404a47 | what other amenities you offer | At ILLORA RETREATS, we offer a range of luxurious amenities to enhance your stay, including:
+
+- Personalized butler service
+- Private cabanas by the pool
+- Exclusive access to our rooftop lounge with breathtaking views
+- Complimentary Wi-Fi and high-speed internet
+- On-site parking and valet service
+- Gourmet in-room dining and 24/7 room service
+
+Would you like more information on any of these amenities? | Intent: ask_amenities
+2025-08-11 13:09:39,637 | QAAgent | INFO | Processed query at ILLORA RETREATS: i want to book a room
+2025-08-11 13:09:39,639 | web | INFO | Web | 03d6445b-9739-4bb2-91ea-ea030b404a47 | i want to book a room | Welcome to Ilora Retreats. We have a variety of luxurious rooms to suit your preferences. Please contact sales@ilora-retreats.com for more information and to book your stay. | Intent: payment_request

@@ -12,7 +12,7 @@ from PIL import Image
 from logger import log_chat
 
 # existing project imports (kept; adjusted)
-from illora.checkin_app.payment import create_stripe_checkout_for_booking as create_checkout_session
+from payment_gateway import create_checkout_session
 from payment_gateway import create_addon_checkout_session
 from qa_agent import ConciergeBot
 from intent_classifier import classify_intent
@@ -390,11 +390,16 @@ with st.container():
                                 # try the canonical call (booking_id, amount)
                                 sess_obj = None
                                 try:
-                                    sess_obj = create_checkout_session(booking_id, price)
+                                    payment_method = st.radio("Payment Method", ["Online", "Cash on Arrival"])
+                                    sess_obj = create_checkout_session(booking_id, room_type=r.id, nights=nights, cash=(payment_method == "Cash on Arrival"), extras=[])
                                 except TypeError:
                                     # try keyword form (some implementations expect booking_id=..., amount=...)
-                                    sess_obj = create_checkout_session(booking_id=booking_id, amount=price)
-                                checkout_url = _checkout_url_from_session(sess_obj)
+                                    sess_obj = create_checkout_session(booking_id, room_type=r.id, nights=nights, cash=(payment_method == "Cash on Arrival"), extras=[])
+                                if sess_obj:
+                                    st.success("✅ Room booking link generated.")
+                                    st.markdown(f"[💳 Pay for Room Booking]({sess_obj})", unsafe_allow_html=True)
+                                else:
+                                    st.error("⚠️ Room payment link generation failed.")
                                 # if function returned a URL str directly, sess_obj might be str
                                 if checkout_url is None and isinstance(sess_obj, str):
                                     checkout_url = sess_obj
@@ -453,10 +458,14 @@ with st.container():
     if st.session_state.get("predicted_intent") == "payment_request" and not st.session_state.get("pending_addon_request"):
         st.markdown("### 🛏️ Book a Room / Add-on Services (Fallback)")
         with st.form("booking_form"):
-            room_type = st.selectbox("Room Type (optional)", ["None", "Standard", "Deluxe", "Executive", "Family", "Suite"])
+            room_type = st.selectbox("Room Type (optional)", ["None", "Safari Tent", "Star Bed Suite", "double Room", "family", "suite"])
             nights = st.number_input("Number of nights", min_value=1, step=1, value=1)
             payment_method = st.radio("Payment Method", ["Online", "Cash on Arrival"])
-            price_map = {"Standard":12500,"Deluxe":17000,"Executive":23000,"Family":27500,"Suite":34000}
+            price_map = {    "Safari Tent": 12000,
+                             "Star Bed Suite": 18000,
+                             "double room": 10000,
+                             "suite": 34000,
+                            "family": 27500   }
             if room_type != "None":
                 st.markdown(f"💰 **Room Total: ₹{price_map[room_type] * nights}**")
             else:
