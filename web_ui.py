@@ -17,10 +17,17 @@ from payment_gateway import create_addon_checkout_session
 from qa_agent import ConciergeBot
 from intent_classifier import classify_intent
 
+<<<<<<< HEAD
 # SINGLE source-of-truth models & DB session
 from illora.checkin_app.models import Room, Booking, BookingStatus
 from illora.checkin_app.pricing import calculate_price_for_room as calculate_price
 from illora.checkin_app.database import SessionLocal   # must already exist in your project
+=======
+# --- Branding ---
+LOGO_PATH = "logo.jpg"
+QR_LINK = "https://machforo-illora-ai-chieftain-web-ui-mll3bb.streamlit.app/"
+WHATSAPP_LINK = "https://wa.me/919876543210"  # Replace with actual WhatsApp number or group link
+>>>>>>> 4825fa9f1e65c048f1b01504a9dc1d0ea6f803e8
 
 # --- Page Config ---
 st.set_page_config(page_title="ILLORA Retreat – AI Concierge", page_icon="🛎️", layout="wide")
@@ -63,6 +70,7 @@ def generate_qr_code_bytes(link: str) -> bytes:
     buf.seek(0)
     return buf.getvalue()
 
+<<<<<<< HEAD
 def save_qr_to_static(link: str, filename: str):
     """Save QR PNG under static/ and return local path and public path if MEDIA_BASE_URL set."""
     img_bytes = generate_qr_code_bytes(link)
@@ -198,6 +206,9 @@ if os.path.exists(BACKGROUND_IMAGE):
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # --- Session state init -----------------------------------------------------
+=======
+# --- Session State Initialization ---
+>>>>>>> 4825fa9f1e65c048f1b01504a9dc1d0ea6f803e8
 if "bot" not in st.session_state:
     st.session_state.bot = ConciergeBot()
 if "chat_history" not in st.session_state:
@@ -216,13 +227,25 @@ if "show_room_options" not in st.session_state:
 if "checkout_info" not in st.session_state:
     st.session_state.checkout_info = None
 
+<<<<<<< HEAD
 # --- Sidebar ----------------------------------------------------------------
+=======
+# --- Page Config ---
+st.set_page_config(
+    page_title="ILLORA Retreat – AI Concierge",
+    page_icon="🛎️",
+    layout="wide"
+)
+
+# --- Sidebar: Logo, Guest Identity, WhatsApp QR ---
+>>>>>>> 4825fa9f1e65c048f1b01504a9dc1d0ea6f803e8
 with st.sidebar:
     if os.path.exists(LOGO_PATH):
         st.image(LOGO_PATH, width=180)
     st.markdown("### 🧾 Guest Status")
     with st.form("guest_status_form"):
         guest_option = st.radio("Are you staying at ILLORA Retreat?", ["Yes", "No"])
+<<<<<<< HEAD
         if st.form_submit_button("Submit"):
             st.session_state.guest_status = guest_option
     st.markdown("---")
@@ -251,6 +274,42 @@ with st.container():
     st.markdown("### 💬 Concierge Chat")
     user_input = st.chat_input("Ask me anything about ILLORA Retreat")
     coming_from = "Web"
+=======
+        submit_guest = st.form_submit_button("Submit")
+        if submit_guest:
+            st.session_state.guest_status = guest_option
+
+    st.markdown("---")
+    st.markdown("### 📞 Connect on WhatsApp")
+    wa_qr = generate_qr_code(WHATSAPP_LINK)
+    buf = BytesIO()
+    wa_qr.save(buf, format="PNG")
+    st.image(buf.getvalue(), width=160, caption="Chat with us on WhatsApp")
+
+# --- Header Section ---
+st.title("🏨 ILLORA Retreat – Your AI Concierge")
+st.markdown("#### _Welcome to ILLORA Retreat, where luxury meets the wilderness._")
+st.markdown("---")
+
+# --- QR to Open on Mobile ---
+st.markdown("### 📱 Access this Assistant on Mobile")
+qr_img = generate_qr_code(QR_LINK)
+qr_buf = BytesIO()
+qr_img.save(qr_buf, format="PNG")
+st.image(qr_buf.getvalue(), width=180, caption="Scan to open on your phone")
+
+st.markdown("---")
+
+# --- Chat History Display ---
+for role, msg in st.session_state.chat_history:
+    with st.chat_message(role):
+        st.markdown(msg)
+
+# --- Chat Input ---
+st.markdown("### 💬 Concierge Chat")
+user_input = st.chat_input("Ask me anything about ILLORA Retreat")
+coming_from = "Web"
+>>>>>>> 4825fa9f1e65c048f1b01504a9dc1d0ea6f803e8
 
     if user_input:
         st.session_state.user_input = user_input
@@ -258,10 +317,16 @@ with st.container():
         st.chat_message("user").markdown(user_input)
         st.session_state.chat_history.append(("user", user_input))
 
+<<<<<<< HEAD
         # detect add-on mentions
         message_lower = user_input.lower()
         addon_matches = [k for k in AVAILABLE_EXTRAS if k.lower() in message_lower]
         st.session_state.pending_addon_request = addon_matches if addon_matches else []
+=======
+    message_lower = user_input.lower()
+    addon_matches = [key for key in AVAILABLE_EXTRAS if key.lower() in message_lower]
+    st.session_state.pending_addon_request = addon_matches if addon_matches else []
+>>>>>>> 4825fa9f1e65c048f1b01504a9dc1d0ea6f803e8
 
         with st.spinner("🤖 Thinking..."):
             is_guest = st.session_state.guest_status == "Yes"
@@ -273,6 +338,7 @@ with st.container():
         st.chat_message("assistant").markdown(response)
         st.session_state.chat_history.append(("assistant", response))
 
+<<<<<<< HEAD
     # --- Add-on quick flow (existing) ---------------------------------------
     if st.session_state.get("pending_addon_request"):
         st.markdown("### 🧾 Confirm Add-on Services")
@@ -293,6 +359,12 @@ with st.container():
             st.session_state.pending_addon_request = []
         if cancel:
             st.session_state.pending_addon_request = []
+=======
+# --- Add-on Confirmation ---
+if st.session_state.get("pending_addon_request"):
+    st.markdown("### 🧾 Confirm Add-on Services")
+    st.info(f"Would you like to pay for the following service(s)?\n👉 {', '.join(st.session_state.pending_addon_request)}")
+>>>>>>> 4825fa9f1e65c048f1b01504a9dc1d0ea6f803e8
 
     # --- Pre-check-in booking intent handling --------------------------------
     if st.session_state.get("predicted_intent") in ("payment_request", "booking_request"):
@@ -333,6 +405,7 @@ with st.container():
                 if isinstance(co, str):
                     co = datetime.fromisoformat(co).date()
 
+<<<<<<< HEAD
                 for r in rooms:
                     try:
                         price, nights = calculate_price(db, r, ci, co)  # using your app/pricing.py
@@ -357,6 +430,16 @@ with st.container():
                                     st.image(first_media, caption=f"{r.name} — ₹{price} total ({nights} nights)")
                         else:
                             st.write(f"**{r.name}** — ₹{price} total ({nights} nights)")
+=======
+# --- Room/Addon Payment Form ---
+if st.session_state.get("predicted_intent") == "payment_request" and not st.session_state.get("pending_addon_request"):
+    st.markdown("### 🛏️ Book a Room / Add-on Services")
+
+    with st.form("booking_form"):
+        room_type = st.selectbox("Room Type (optional)", ["None", "Standard", "Deluxe", "Executive", "Family", "Suite"])
+        nights = st.number_input("Number of nights", min_value=1, step=1, value=1)
+        payment_method = st.radio("Payment Method", ["Online", "Cash on Arrival"])
+>>>>>>> 4825fa9f1e65c048f1b01504a9dc1d0ea6f803e8
 
                     with cols[1]:
                         st.write(f"**{r.name}** — {r.room_type}")
@@ -415,6 +498,7 @@ with st.container():
                                 db.close()
                                 st.stop()
 
+<<<<<<< HEAD
                             # Generate a temporary clickable QR that links to the checkout page (if we have a URL)
                             qr_filename = f"checkout_{booking_id}.png"
                             local_qr_path, public_qr = None, None
@@ -448,6 +532,17 @@ with st.container():
         st.write(f"Room: **{info['room_name']}**")
         st.write(f"Amount: ₹{info['price']}")
         st.markdown("Complete payment using the link above. After successful payment Stripe will call your webhook and finalize the booking (generate final QR & send WhatsApp if WhatsApp number provided).")
+=======
+        if room_type != "None":
+            base_price = price_map[room_type] * nights
+            st.markdown(f"💰 **Room Total: ₹{base_price}**")
+        else:
+            st.markdown("💡 You can skip room booking and only pay for add-ons.")
+
+        st.markdown("### 🧖‍♀️ Optional Add-ons")
+        selected_extras = st.multiselect("Choose your add-ons:", list(AVAILABLE_EXTRAS.keys()))
+        submit_booking = st.form_submit_button("✅ Proceed")
+>>>>>>> 4825fa9f1e65c048f1b01504a9dc1d0ea6f803e8
 
     # --- Fallback booking form (keeps previous behaviour) --------------------
     if st.session_state.get("predicted_intent") == "payment_request" and not st.session_state.get("pending_addon_request"):
@@ -493,4 +588,35 @@ with st.container():
                 if not room_selected and not any_addon_selected:
                     st.warning("⚠️ Please select a room or at least one add-on to proceed.")
 
+<<<<<<< HEAD
     st.markdown('</div>', unsafe_allow_html=True)
+=======
+            if room_selected:
+                room_url = create_checkout_session(
+                    session_id=st.session_state.session_id,
+                    room_type=room_type,
+                    nights=nights,
+                    cash=(payment_method == "Cash on Arrival"),
+                    extras=[]
+                )
+                if room_url:
+                    st.success("✅ Room booking link generated.")
+                    st.markdown(f"[💳 Pay for Room Booking]({room_url})", unsafe_allow_html=True)
+                else:
+                    st.error("⚠️ Room payment link generation failed.")
+
+            if any_addon_selected:
+                extra_keys = [AVAILABLE_EXTRAS[item] for item in selected_extras]
+                addon_url = create_addon_checkout_session(
+                    session_id=st.session_state.session_id,
+                    extras=extra_keys
+                )
+                if addon_url:
+                    st.success("🧾 Add-on payment link generated.")
+                    st.markdown(f"[💳 Pay for Add-ons]({addon_url})", unsafe_allow_html=True)
+                else:
+                    st.error("⚠️ Add-on payment link generation failed.")
+
+            if not room_selected and not any_addon_selected:
+                st.warning("⚠️ Please select a room or at least one add-on to proceed.")
+>>>>>>> 4825fa9f1e65c048f1b01504a9dc1d0ea6f803e8
