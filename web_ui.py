@@ -12,8 +12,7 @@ from PIL import Image
 from logger import log_chat
 
 # existing project imports (kept; adjusted)
-from payment_gateway import create_checkout_session
-from payment_gateway import create_addon_checkout_session
+from payment_gateway import create_checkout_session, create_addon_checkout_session
 from qa_agent import ConciergeBot
 from intent_classifier import classify_intent
 
@@ -82,7 +81,10 @@ def _checkout_url_from_session(sess):
         return sess
     # stripe.Session object often has .url attr in newer libs
     if hasattr(sess, "url"):
-        return getattr(sess, "url")
+        try:
+            return getattr(sess, "url")
+        except Exception:
+            pass
     # dict-like
     try:
         if isinstance(sess, dict):
@@ -90,9 +92,10 @@ def _checkout_url_from_session(sess):
                 return sess["url"]
             if "checkout_url" in sess:
                 return sess["checkout_url"]
+            # sometimes Stripe returns {'id': 'cs_...', ...} without url in older libs
+            # we can't build a public url from that reliably
     except Exception:
         pass
-    # fallback: try client_secret -> build a payment url? Not reliable
     return None
 
 # --- Minimal YouTube / Instagram preview helpers -----------------------------
@@ -215,6 +218,9 @@ if "show_room_options" not in st.session_state:
     st.session_state.show_room_options = False
 if "checkout_info" not in st.session_state:
     st.session_state.checkout_info = None
+# staged booking confirmation
+if "booking_to_confirm" not in st.session_state:
+    st.session_state.booking_to_confirm = None
 
 # --- Sidebar ----------------------------------------------------------------
 with st.sidebar:
@@ -318,9 +324,7 @@ with st.container():
     if st.session_state.get("show_room_options"):
         st.markdown("### 🏨 Available Rooms & Media Previews")
         db = SessionLocal()
-        
         try:
-
             rooms = db.query(Room).all()
             if not rooms:
                 st.warning("No rooms found in DB. Seed rooms first.")
@@ -367,80 +371,141 @@ with st.container():
                             if "youtube" in m or "youtu.be" in m:
                                 # show video (Streamlit will embed)
                                 st.video(m)
-                        # booking action
-                        if st.button(f"Book {r.name} — ₹{price}", key=f"book_{r.id}"):
-                            # create a pending booking record and create a checkout session
-                            booking_id = str(uuid.uuid4())
-                            booking = Booking(
-                                id=booking_id,
-                                guest_name=(st.session_state.get("user_input") or "Guest"),
-                                guest_phone=st.session_state.booking_details.get("whatsapp_number", ""),
-                                room_id=r.id,
-                                check_in=ci,
-                                check_out=co,
-                                price=price,
-                                status=BookingStatus.pending,
-                                channel="web",
-                                channel_user=st.session_state.booking_details.get("whatsapp_number", "") or None
-                            )
-                            db.add(booking)
-                            db.commit()
-                            # create checkout session (robust call that accepts either object or URL)
-                            try:
-                                # try the canonical call (booking_id, amount)
-                                sess_obj = None
-                                try:
-                                    payment_method = st.radio("Payment Method", ["Online", "Cash on Arrival"])
-                                    sess_obj = create_checkout_session(booking_id, room_type=r.id, nights=nights, cash=(payment_method == "Cash on Arrival"), extras=[])
-                                except TypeError:
-                                    # try keyword form (some implementations expect booking_id=..., amount=...)
-                                    sess_obj = create_checkout_session(booking_id, room_type=r.id, nights=nights, cash=(payment_method == "Cash on Arrival"), extras=[])
-                                if sess_obj:
-                                    st.success("✅ Room booking link generated.")
-                                    st.markdown(f"[💳 Pay for Room Booking]({sess_obj})", unsafe_allow_html=True)
-                                else:
-                                    st.error("⚠️ Room payment link generation failed.")
-                                # if function returned a URL str directly, sess_obj might be str
-                                if checkout_url is None and isinstance(sess_obj, str):
-                                    checkout_url = sess_obj
-                                # if still none, try to get id and build fallback url (not guaranteed)
-                                if checkout_url is None and hasattr(sess_obj, "id"):
-                                    booking.stripe_session_id = getattr(sess_obj, "id")
-                                    db.commit()
-                                    # some setups cannot provide direct checkout url; ask user to open stripe dashboard
-                                    checkout_url = None
-                                else:
-                                    # save session id if present
-                                    if hasattr(sess_obj, "id"):
-                                        booking.stripe_session_id = getattr(sess_obj, "id")
-                                        db.commit()
-                            except Exception as e:
-                                st.error(f"Failed to create checkout session: {e}")
-                                db.rollback()
-                                db.close()
-                                st.stop()
 
-                            # Generate a temporary clickable QR that links to the checkout page (if we have a URL)
-                            qr_filename = f"checkout_{booking_id}.png"
-                            local_qr_path, public_qr = None, None
-                            if checkout_url:
-                                local_qr_path, public_qr = save_qr_to_static(checkout_url, qr_filename)
-                                st.success("Checkout created — complete payment to confirm booking.")
-                                st.markdown(f"[💳 Proceed to payment]({checkout_url})", unsafe_allow_html=True)
-                                st.image(generate_qr_code_bytes(checkout_url), width=240, caption="Scan to open payment on mobile (temporary)")
-                            else:
-                                st.warning("Checkout session created but no public URL was returned. Complete payment via Stripe Dashboard (or update create_checkout_session to return url).")
-
-                            # store checkout_info in session so web UI can show summary
-                            st.session_state.checkout_info = {
-                                "booking_id": booking_id,
+                        # ---------- Booking: start (stage) ----------
+                        start_key = f"start_book_{r.id}"
+                        if st.button(f"Book {r.name} — ₹{price}", key=start_key):
+                            # stage booking in session state for confirmation
+                            st.session_state.booking_to_confirm = {
+                                "booking_id": str(uuid.uuid4()),
+                                "room_id": r.id,
                                 "room_name": r.name,
+                                "check_in": ci.isoformat(),
+                                "check_out": co.isoformat(),
                                 "price": price,
                                 "nights": nights,
-                                "checkout_url": checkout_url,
-                                "qr_local": local_qr_path,
-                                "qr_public": public_qr
+                                "guest_name": (st.session_state.get("user_input") or "Guest"),
+                                "guest_phone": st.session_state.booking_details.get("whatsapp_number", "")
                             }
+                            # rerun shows the confirmation block
+
+                        # ---------- If staged booking matches this room, show confirm UI ----------
+                        btc = st.session_state.get("booking_to_confirm")
+                        if btc and btc.get("room_id") == r.id:
+                            st.markdown("---")
+                            st.markdown(f"**Confirm booking for**: **{btc['room_name']}**  •  ₹{btc['price']}  •  {btc['nights']} nights")
+                            payment_method = st.selectbox("Payment Method", ["Online", "Cash on Arrival"], key=f"pm_{r.id}")
+                            notes = st.text_input("Special requests (optional)", value=st.session_state.booking_details.get("preferences",""), key=f"notes_{r.id}")
+
+                            col_confirm, col_cancel = st.columns([1,1])
+                            with col_confirm:
+                                if st.button("✅ Confirm & Create Payment", key=f"confirm_{r.id}"):
+                                    # create DB booking
+                                    booking_id = btc["booking_id"]
+                                    try:
+                                        booking = Booking(
+                                            id=booking_id,
+                                            guest_name=btc["guest_name"],
+                                            guest_phone=btc["guest_phone"],
+                                            room_id=btc["room_id"],
+                                            check_in=datetime.fromisoformat(btc["check_in"]).date(),
+                                            check_out=datetime.fromisoformat(btc["check_out"]).date(),
+                                            price=btc["price"],
+                                            status=BookingStatus.pending,
+                                            channel="web",
+                                            channel_user=btc["guest_phone"] or None
+                                        )
+                                        db.add(booking)
+                                        db.commit()
+                                    except Exception as e:
+                                        db.rollback()
+                                        st.error(f"Failed to create booking record: {e}")
+                                        st.session_state.booking_to_confirm = None
+                                        raise
+
+                                    # create stripe session — pass room name (string) not r.id
+                                    checkout_url = None
+                                    stripe_session_id = None
+                                    try:
+                                        with st.spinner("Creating payment session..."):
+                                            stripe_sess = create_checkout_session(
+                                                session_id=booking_id,
+                                                room_type=r.name,   # pass name or r.room_type depending on gateway keys
+                                                nights=btc["nights"],
+                                                cash=(payment_method == "Cash on Arrival"),
+                                                extras=[]
+                                            )
+                                            checkout_url = _checkout_url_from_session(stripe_sess)
+                                            # try to extract session id if present
+                                            if hasattr(stripe_sess, "id"):
+                                                stripe_session_id = getattr(stripe_sess, "id")
+                                            elif isinstance(stripe_sess, dict) and "id" in stripe_sess:
+                                                stripe_session_id = stripe_sess.get("id")
+                                    except Exception as e:
+                                        # if stripe call fails keep booking pending and inform developer
+                                        db.rollback()
+                                        st.error(f"Failed to create checkout session: {e}")
+                                        st.session_state.booking_to_confirm = None
+                                        raise
+
+                                    # update booking with stripe session id if model has attr
+                                    try:
+                                        if stripe_session_id:
+                                            if hasattr(booking, "stripe_session_id"):
+                                                booking.stripe_session_id = stripe_session_id
+                                            else:
+                                                # attempt generic attribute set (safe)
+                                                setattr(booking, "stripe_session_id", stripe_session_id)
+                                            db.commit()
+                                    except Exception:
+                                        # not critical, continue
+                                        db.rollback()
+
+                                    # If we have a public checkout URL, create QR and show link
+                                    local_qr_path = None
+                                    public_qr = None
+                                    if checkout_url:
+                                        try:
+                                            qr_filename = f"checkout_{booking_id}.png"
+                                            local_qr_path, public_qr = save_qr_to_static(checkout_url, qr_filename)
+                                            # try to save qr path back to booking if possible
+                                            try:
+                                                if hasattr(booking, "qr_path"):
+                                                    booking.qr_path = public_qr
+                                                else:
+                                                    setattr(booking, "qr_path", public_qr)
+                                                db.commit()
+                                            except Exception:
+                                                db.rollback()
+                                        except Exception:
+                                            # continue even if QR save fails
+                                            pass
+
+                                        st.success("Checkout created — complete payment to confirm booking.")
+                                        st.markdown(f"[💳 Proceed to payment]({checkout_url})", unsafe_allow_html=True)
+                                        st.image(generate_qr_code_bytes(checkout_url), width=240, caption="Scan to open payment on mobile")
+                                    else:
+                                        st.warning("Checkout created but no public URL was returned. Check your payment gateway implementation or Stripe SDK version.")
+
+                                    # store checkout_info in session so web UI can show summary
+                                    st.session_state.checkout_info = {
+                                        "booking_id": booking_id,
+                                        "room_name": r.name,
+                                        "price": btc["price"],
+                                        "nights": btc["nights"],
+                                        "checkout_url": checkout_url,
+                                        "qr_local": local_qr_path,
+                                        "qr_public": public_qr
+                                    }
+
+                                    # clear staged booking
+                                    st.session_state.booking_to_confirm = None
+
+                            with col_cancel:
+                                if st.button("❌ Cancel booking", key=f"cancel_{r.id}"):
+                                    st.session_state.booking_to_confirm = None
+                                    st.info("Booking cancelled.")
+
         finally:
             db.close()
 
@@ -452,7 +517,9 @@ with st.container():
         st.write(f"Booking ID: `{info['booking_id']}`")
         st.write(f"Room: **{info['room_name']}**")
         st.write(f"Amount: ₹{info['price']}")
-        st.markdown("Complete payment using the link above. After successful payment Stripe will call your webhook and finalize the booking (generate final QR & send WhatsApp if WhatsApp number provided).")
+        if info.get("checkout_url"):
+            st.markdown(f"[Click here to pay]({info['checkout_url']})")
+        st.markdown("After successful payment Stripe will call your webhook and finalize the booking (generate final QR & send WhatsApp if WhatsApp number provided).")
 
     # --- Fallback booking form (keeps previous behaviour) --------------------
     if st.session_state.get("predicted_intent") == "payment_request" and not st.session_state.get("pending_addon_request"):
@@ -461,13 +528,18 @@ with st.container():
             room_type = st.selectbox("Room Type (optional)", ["None", "Safari Tent", "Star Bed Suite", "double Room", "family", "suite"])
             nights = st.number_input("Number of nights", min_value=1, step=1, value=1)
             payment_method = st.radio("Payment Method", ["Online", "Cash on Arrival"])
-            price_map = {    "Safari Tent": 12000,
-                             "Star Bed Suite": 18000,
-                             "double room": 10000,
-                             "suite": 34000,
-                            "family": 27500   }
+            price_map = {
+                "Safari Tent": 12000, "Star Bed Suite": 18000,
+                "double room": 10000, "suite": 34000, "family": 27500
+            }
             if room_type != "None":
-                st.markdown(f"💰 **Room Total: ₹{price_map[room_type] * nights}**")
+                # guard against case mismatch in price_map keys
+                price_key = room_type if room_type in price_map else room_type.lower()
+                room_price = price_map.get(price_key, None)
+                if room_price is None:
+                    st.warning("Price not found for selected room (check fallback price_map keys).")
+                else:
+                    st.markdown(f"💰 **Room Total: ₹{room_price * nights}**")
             else:
                 st.markdown("💡 You can skip room booking and only pay for add-ons.")
             st.markdown("### 🧖‍♀️ Optional Add-ons")
@@ -503,3 +575,4 @@ with st.container():
                     st.warning("⚠️ Please select a room or at least one add-on to proceed.")
 
     st.markdown('</div>', unsafe_allow_html=True)
+
