@@ -27,7 +27,7 @@ from illora.checkin_app.database import SessionLocal   # must already exist in y
 LOGO_PATH = "logo.jpg"
 QR_LINK = "https://machforo-illora-ai-chieftain-web-ui-mll3bb.streamlit.app/"
 WHATSAPP_LINK = "https://wa.me/919876543210"  # Replace with actual WhatsApp number or group link
->>>>>>> 4825fa9f1e65c048f1b01504a9dc1d0ea6f803e8
+
 
 # --- Page Config ---
 st.set_page_config(page_title="ILLORA Retreat – AI Concierge", page_icon="🛎️", layout="wide")
