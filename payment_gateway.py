@@ -1,7 +1,12 @@
-# payment_gateway.py (fixed)
+# payment_gateway.py (with multi-unit extras support)
+
 import stripe
+import json
+import os
+from collections import Counter
 from config import Config
 
+# Stripe initialization
 stripe.api_key = Config.STRIPE_SECRET_KEY
 if not stripe.api_key:
     raise Exception("STRIPE_SECRET_KEY not found")
@@ -10,7 +15,27 @@ YOUR_DOMAIN = getattr(Config, "BASE_URL", "http://localhost:8501")
 if not (YOUR_DOMAIN.startswith("http://") or YOUR_DOMAIN.startswith("https://")):
     raise ValueError("Config.BASE_URL must be an absolute URL (http(s)://...)")
 
-# Room pricing (INR per night) -- canonicalized to lowercase keys
+# -----------------------------
+# Load menu.json (Add-ons, Spa, Drinks, etc.)
+# -----------------------------
+MENU_FILE = os.path.join(os.path.dirname(__file__), "menu.json")
+with open(MENU_FILE, "r", encoding="utf-8") as f:
+    MENU = json.load(f)
+
+# Flattened pricing dictionary
+EXTRA_PRICING = {}
+for category, items in MENU.items():
+    if category == "complimentary":
+        continue
+    for name, price in items.items():
+        EXTRA_PRICING[name.lower().replace(" ", "_")] = price
+
+# Complimentary items (free)
+COMPLIMENTARY_ITEMS = set(MENU.get("complimentary", []))
+
+# -----------------------------
+# Room pricing (still fixed in INR)
+# -----------------------------
 RAW_ROOM_PRICING = {
     "Safari Tent": 12000,
     "Star Bed Suite": 18000,
@@ -18,37 +43,26 @@ RAW_ROOM_PRICING = {
     "suite": 34000,
     "family": 27500
 }
-# create lowercase-key map for robust lookups
 ROOM_PRICING = {k.lower(): v for k, v in RAW_ROOM_PRICING.items()}
 
-# Add-on pricing (INR)
-EXTRA_PRICING = {
-    "spa_massage": 3000, "spa_aromatherapy": 3500, "spa_hot_stone": 4000,
-    "juice": 510, "mocktail": 935, "cocktail": 1275, "milkshake": 595,
-    "smoothie": 595, "bbq_sliders": 595, "masai_spiced_nuts": 510,
-    "cheese_platter": 765, "chocolate_brownie": 510, "cheesecake": 510,
-    "banana_spring_roll": 510, "stuffed_mini_peppers": 595, "vegetable_skewers": 595
-}
 
-COMPLIMENTARY_ITEMS = [
-    "tea", "coffee", "earl_grey", "green_tea", "espresso", "latte",
-    "americano", "cappuccino", "masala_tea", "jasmine_tea", "darjeeling"
-]
-
+# -----------------------------
+# Checkout for room booking + add-ons
+# -----------------------------
 def create_checkout_session(session_id, room_type, nights, cash=False, extras=None):
     try:
         extras = extras or []
         nights = int(nights)
 
-        # normalize room_type for lookup
+        # Normalize room_type
         lookup_key = (room_type or "").strip().lower()
         price_per_night = ROOM_PRICING.get(lookup_key)
         if price_per_night is None:
             raise ValueError(f"Invalid room_type for pricing lookup: {room_type!r}")
 
+        # Room charge
         room_amount = 2000 if cash else price_per_night * nights
 
-        total_amount = room_amount
         line_items = [{
             'price_data': {
                 'currency': 'inr',
@@ -56,25 +70,26 @@ def create_checkout_session(session_id, room_type, nights, cash=False, extras=No
                     'name': f"{room_type} Room Booking",
                     'description': f"{nights} night(s) stay"
                 },
-                'unit_amount': int(room_amount * 100)
+                'unit_amount': int(room_amount * 100)  # Stripe expects paise
             },
             'quantity': 1
         }]
 
-        for extra in extras:
-            key = extra.lower().replace(" ", "_")
+        # Aggregate extras by count
+        extras_counter = Counter([e.lower().replace(" ", "_") for e in extras])
+
+        for key, qty in extras_counter.items():
             if key in COMPLIMENTARY_ITEMS:
                 continue
             extra_price = EXTRA_PRICING.get(key)
             if extra_price:
-                total_amount += extra_price
                 line_items.append({
                     'price_data': {
                         'currency': 'inr',
-                        'product_data': {'name': extra.replace("_", " ").title()},
+                        'product_data': {'name': key.replace("_", " ").title()},
                         'unit_amount': int(extra_price * 100)
                     },
-                    'quantity': 1
+                    'quantity': qty
                 })
 
         checkout_session = stripe.checkout.Session.create(
@@ -84,20 +99,25 @@ def create_checkout_session(session_id, room_type, nights, cash=False, extras=No
             success_url=f"{YOUR_DOMAIN}?payment=success&session_id={session_id}",
             cancel_url=f"{YOUR_DOMAIN}?payment=cancel&session_id={session_id}",
         )
-
-        return checkout_session.url  # always return the URL (string)
+        return checkout_session.url
 
     except Exception as e:
         print(f"[Stripe Checkout Error] {e}")
         return None
 
 
+# -----------------------------
+# Checkout for add-ons only
+# -----------------------------
 def create_addon_checkout_session(session_id, extras):
     try:
         extras = extras or []
         line_items = []
-        for extra in extras:
-            key = extra.lower().replace(" ", "_")
+
+        # Aggregate extras by count
+        extras_counter = Counter([e.lower().replace(" ", "_") for e in extras])
+
+        for key, qty in extras_counter.items():
             if key in COMPLIMENTARY_ITEMS:
                 continue
             extra_price = EXTRA_PRICING.get(key)
@@ -105,11 +125,12 @@ def create_addon_checkout_session(session_id, extras):
                 line_items.append({
                     'price_data': {
                         'currency': 'inr',
-                        'product_data': {'name': extra.replace("_", " ").title()},
+                        'product_data': {'name': key.replace("_", " ").title()},
                         'unit_amount': int(extra_price * 100)
                     },
-                    'quantity': 1
+                    'quantity': qty
                 })
+
         if not line_items:
             return None
 

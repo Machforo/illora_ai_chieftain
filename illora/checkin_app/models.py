@@ -23,7 +23,6 @@ class Room(Base):
     media = Column(JSON, default=[])
     description = Column(String, nullable=True)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
-
     bookings = relationship("Booking", back_populates="room", cascade="all, delete-orphan")
 
 class Booking(Base):
