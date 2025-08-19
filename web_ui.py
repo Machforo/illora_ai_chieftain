@@ -43,6 +43,9 @@ with open(MENU_FILE, "r", encoding="utf-8") as f:
 
 # Flatten items for UI selection
 AVAILABLE_EXTRAS = {}
+extra_keys = []
+
+
 for category, items in MENU.items():
     if category == "complimentary":
         continue
@@ -241,6 +244,8 @@ with st.sidebar:
     st.markdown("### 📞 Connect on WhatsApp")
     wa_qr = generate_qr_code_bytes(WHATSAPP_LINK)
     st.image(wa_qr, width=160, caption="Chat with us on WhatsApp")
+
+extra_keys = []
 
 # --- Main layout ------------------------------------------------------------
 with st.container():

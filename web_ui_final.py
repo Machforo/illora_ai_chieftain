@@ -11,6 +11,7 @@ from pathlib import Path
 from collections import Counter
 
 import streamlit as st
+import streamlit.components.v1 as components   # new: for localStorage & tiny JS snippets
 from PIL import Image
 from logger import log_chat
 
@@ -23,6 +24,11 @@ from intent_classifier import classify_intent
 from illora.checkin_app.models import Room, Booking, BookingStatus
 from illora.checkin_app.pricing import calculate_price_for_room as calculate_price
 from illora.checkin_app.database import SessionLocal   # must already exist in your project
+
+
+# --- Feature toggles / constants ------------------------------------------------
+TESTING_FORCE_ID_AFTER_PAYMENT = True   # if True: force uploader after checkout link for testing flows
+REMEMBER_LOCALSTORAGE_KEY = "illora_remember"
 
 # --- Page Config ---
 st.set_page_config(page_title="ILORA Retreat – AI Concierge", page_icon="🛎️", layout="wide")
@@ -64,13 +70,16 @@ USER_DB_PATH = "illora_user_gate.db"
 def init_user_db():
     conn = sqlite3.connect(USER_DB_PATH)
     c = conn.cursor()
+    # Note: adding remember_token (nullable). If table already exists, this statement will be ignored.
     c.execute("""
     CREATE TABLE IF NOT EXISTS users(
         email TEXT PRIMARY KEY,
         password TEXT,
         booked INTEGER DEFAULT 0,
         id_proof_uploaded INTEGER DEFAULT 0,
-        due_items TEXT DEFAULT '[]'   -- JSON array of addon keys queued as Pay Later
+        due_items TEXT DEFAULT '[]',
+        remember_token TEXT,
+        remember_expires TEXT
     )""")
     conn.commit()
     conn.close()
@@ -78,7 +87,17 @@ def init_user_db():
 def get_user_row(email):
     conn = sqlite3.connect(USER_DB_PATH)
     c = conn.cursor()
-    c.execute("SELECT email, password, booked, id_proof_uploaded, due_items FROM users WHERE email=?", (email,))
+    c.execute("SELECT email, password, booked, id_proof_uploaded, due_items, remember_token FROM users WHERE email=?", (email,))
+    row = c.fetchone()
+    conn.close()
+    return row
+
+def get_user_by_token(token):
+    if not token:
+        return None
+    conn = sqlite3.connect(USER_DB_PATH)
+    c = conn.cursor()
+    c.execute("SELECT email, password, booked, id_proof_uploaded, due_items, remember_token FROM users WHERE remember_token=?", (token,))
     row = c.fetchone()
     conn.close()
     return row
@@ -112,6 +131,20 @@ def get_due_items(email) -> list:
         return json.loads(row[4] or "[]")
     except Exception:
         return []
+
+def set_remember_token(email, token, expires=None):
+    conn = sqlite3.connect(USER_DB_PATH)
+    c = conn.cursor()
+    c.execute("UPDATE users SET remember_token=?, remember_expires=? WHERE email=?", (token, expires, email))
+    conn.commit()
+    conn.close()
+
+def clear_remember_token(email):
+    conn = sqlite3.connect(USER_DB_PATH)
+    c = conn.cursor()
+    c.execute("UPDATE users SET remember_token=NULL, remember_expires=NULL WHERE email=?", (email,))
+    conn.commit()
+    conn.close()
 
 def _flatten_list(maybe_list):
     out = []
@@ -152,7 +185,6 @@ def add_due_items(email, new_items: list):
             normalized.append(s_key)
             continue
         # unknown -> skip
-        # don't spam production logs; keep minimal print for dev
         print(f"add_due_items: skipped unknown extra '{s}'")
 
     if not normalized:
@@ -367,10 +399,90 @@ if os.path.exists(BACKGROUND_IMAGE):
     p, label, .stMarkdown {{
         color: #f0f0f0 !important;
     }}
+
+    /* WhatsApp-style chat window & bubbles */
+    .chat-window {{
+        max-height: calc(100vh - 280px);
+        overflow-y: auto;
+        padding: 12px;
+        padding-bottom: 80px;     /* ← corrected */
+        display: flex;
+        flex-direction: column;
+    }}
+
+    .bubble {{
+        max-width: 78%;
+        padding: 10px 14px;
+        border-radius: 18px;
+        margin: 6px 8px;
+        word-break: break-word;
+        line-height: 1.35;
+    }}
+    .bubble.user {{
+        align-self: flex-end;
+        background: linear-gradient(135deg,#DCF8C6,#BFEFC7);
+        color: #000;
+        border-bottom-right-radius: 6px;
+    }}
+    .bubble.assistant {{
+        align-self: flex-start;
+        background: linear-gradient(135deg, #DCF0FF, #BFE7FF);
+        color: #000;
+        border-bottom-left-radius: 6px;
+    }}
+    .chat-input-area {{
+        position: sticky;
+        bottom: 0;
+        background: transparent;
+        padding-top: 8px;
+    }}
     </style>
     """
     st.markdown(page_bg_img, unsafe_allow_html=True)
 
+# --- Utility: small client-side snippets for remember-me ----------------------
+def inject_localstorage_redirect():
+    """
+    If the browser has a stored remember token in localStorage, redirect to add it as a
+    query param so the server can pick it up and auto-login.
+    This script will NOT do anything if the URL already has remember_token param.
+    """
+    js = f"""
+    <script>
+    (function(){{
+      try {{
+        const params = new URLSearchParams(window.location.search);
+        if (!params.has('remember_token')) {{
+          const t = localStorage.getItem('{REMEMBER_LOCALSTORAGE_KEY}');
+          if (t) {{
+            const baseUrl = window.location.pathname + window.location.search;
+            const sep = baseUrl.includes('?') ? '&' : '?';
+            window.location.href = baseUrl + sep + 'remember_token=' + encodeURIComponent(t);
+          }}
+        }}
+      }} catch(e){{console.log(e)}}
+    }})();
+    </script>
+    """
+    components.html(js, height=0)
+
+def set_localstorage_token(token):
+    """Set the remember token in browser localStorage (after login with Remember me)."""
+    js = f"<script>try{{localStorage.setItem('{REMEMBER_LOCALSTORAGE_KEY}','{token}');}}catch(e){{console.log(e);}}</script>"
+    components.html(js, height=0)
+
+def clear_localstorage_token_and_reload():
+    """Clear localStorage token and reload page (used for logout/forget device)."""
+    js = f"""
+    <script>
+    try {{
+      localStorage.removeItem('{REMEMBER_LOCALSTORAGE_KEY}');
+      history.replaceState(null, '', window.location.pathname);
+      window.location.reload();
+    }} catch(e){{console.log(e)}}
+    </script>
+    """
+    components.html(js, height=0)
 
 # --- Session state init -----------------------------------------------------
 if "bot" not in st.session_state:
@@ -417,6 +529,20 @@ with st.sidebar:
     wa_qr = generate_qr_code_bytes(WHATSAPP_LINK)
     st.image(wa_qr, width=160, caption="Chat with us on WhatsApp")
 
+    st.markdown("---")
+    # Logout / Forget device control
+    if st.session_state.get("user_profile"):
+        if st.button("🔒 Logout & Forget this device"):
+            # clear server-side token and localStorage
+            try:
+                clear_remember_token(st.session_state.user_profile["email"])
+            except Exception:
+                pass
+            clear_localstorage_token_and_reload()
+    else:
+        st.markdown("Not logged in yet.")
+
+
 # --- Main layout ------------------------------------------------------------
 with st.container():
     st.markdown('<div class="main-content-box">', unsafe_allow_html=True)
@@ -426,11 +552,31 @@ with st.container():
 
     # ---- USERNAME + UID GATE (minimal, additive) ---------------------------
     init_user_db()
+
+    # Attempt auto-login via localStorage token (client-side will redirect with remember_token)
+    # Inject script which reads localStorage and adds remember_token param (only if param missing)
+    inject_localstorage_redirect()
+
+    # check for remember_token in URL params (populated by the JS redirect if present)
+    params = st.experimental_get_query_params()
+    remember_token_param = params.get("remember_token", [None])[0]
+
+    if remember_token_param and not st.session_state.user_profile:
+        # lookup user by token
+        row = get_user_by_token(remember_token_param)
+        if row:
+            # row -> (email, password, booked, id_proof_uploaded, due_items, remember_token)
+            st.session_state.user_profile = {"email": row[0], "password": row[1], "booked": int(row[2] or 0), "id_proof_uploaded": int(row[3] or 0)}
+            st.success(f"👋 Welcome back — you were remembered on this device as `{row[0]}`.")
+            # remove remember_token from URL to avoid loops
+            components.html("<script>history.replaceState(null, '', window.location.pathname);</script>", height=0)
+
     if not st.session_state.user_profile:
         st.markdown("### 🔐 Log In to your personal Ilora Assistant")
         with st.form("user_gate_form"):
             in_email = st.text_input("Email")
-            in_password = st.text_input("Password")
+            in_password = st.text_input("Password", type="password")
+            remember_choice = st.checkbox("Remember me on this device")
             proceed = st.form_submit_button("Continue")
         if not proceed:
             st.info("👉 Please enter your **Email** and **Password** to continue.")
@@ -445,6 +591,13 @@ with st.container():
                 "booked": int(row[2] or 0),
                 "id_proof_uploaded": int(row[3] or 0),
             }
+            # Set remember token if asked
+            if remember_choice:
+                token = uuid.uuid4().hex
+                set_remember_token(in_email, token)
+                # store in browser localStorage
+                set_localstorage_token(token)
+                st.success("✅ We'll remember you on this device.")
         else:
             st.warning("Please fill both Username and UID.")
             st.markdown('</div>', unsafe_allow_html=True)
@@ -472,41 +625,63 @@ with st.container():
     st.image(qr_img, width=180, caption="Scan to open on your phone")
     st.markdown("---")
 
-    # show chat history
-    for role, msg in st.session_state.chat_history:
-        with st.chat_message(role):
-            st.markdown(msg)
 
-    # ---- Concierge Chat (generic until ID proof uploaded)
+
+    # render chat history as HTML bubbles (keeps same data structure used by rest of code)
+    def render_chat_history():
+        # Build HTML for chat bubbles
+        html = '<div class="chat-window" id="chat-window">'
+        for role, msg in st.session_state.chat_history:
+            safe_msg = str(msg).replace("\n", "<br>")
+            if role == "user":
+                html += f'<div class="bubble user">{safe_msg}</div>'
+            else:
+                html += f'<div class="bubble assistant">{safe_msg}</div>'
+        html += "</div>"
+        st.markdown(html, unsafe_allow_html=True)
+        # scroll-to-bottom snippet
+        components.html("<script>var el=document.getElementById('chat-window'); if(el){el.scrollTop = el.scrollHeight;}</script>", height=0)
+
+    # ---- Chat UI (WhatsApp-style) ------------------------------------------
     st.markdown("### 💬 Concierge Chat")
-    user_input = st.chat_input("Ask me anything about ILLORA Retreat")
+
+    # small chat action buttons
+    action_cols = st.columns([1, 1, 1])
+    if action_cols[0].button("🧹 Clear chat history"):
+        st.session_state.chat_history = []
+    if action_cols[1].button("⬇️ Download pending balance JSON") and due_items_now:
+        dl_content = json.dumps({"email": email, "pending_items": get_due_items(email)}, indent=2)
+        st.download_button("Download JSON", dl_content, file_name=f"pending_{email}.json", mime="application/json")
+    action_cols[2].markdown("")
+    
+    prompt = st.chat_input(key="chat_input", placeholder="Ask me anything about ILLORA Retreat")
     coming_from = "Web"
+     
 
-    if user_input:
-        st.session_state.user_input = user_input
-        st.session_state.predicted_intent = classify_intent(user_input)
-        st.chat_message("user").markdown(user_input)
-        st.session_state.chat_history.append(("user", user_input))
-
-        # detect add-on mentions (kept)
-        message_lower = user_input.lower()
+    if prompt:
+        st.session_state.user_input = prompt
+        st.session_state.predicted_intent = classify_intent(prompt)
+        st.session_state.chat_history.append(("user", prompt))
+        message_lower = prompt.lower()
         addon_matches = [k for k in AVAILABLE_EXTRAS if k.lower() in message_lower]
         st.session_state.pending_addon_request = addon_matches if addon_matches else []
 
-        # generic answers if ID proof not uploaded; full otherwise
         with st.spinner("🤖 Thinking..."):
             is_guest = st.session_state.guest_status == "Yes"
-            response = st.session_state.bot.ask(user_input, user_type=is_guest)
-            st.session_state.response = response
-            log_chat(coming_from, st.session_state.session_id, user_input, response,
-                     st.session_state.get("predicted_intent"), is_guest)
+            response = "🤖" + st.session_state.bot.ask(prompt, user_type=is_guest)
+            log_chat(coming_from, st.session_state.session_id, prompt, response,
+                    st.session_state.get("predicted_intent"), is_guest)
 
-        # If ID not uploaded, prepend a small note
         if not id_uploaded_flag:
             response = "*(Generic access — please complete ID verification after booking to unlock full features.)*\n\n" + str(response)
 
         st.session_state.chat_history.append(("assistant", response))
-        st.chat_message("assistant").markdown(response)
+        render_chat_history()
+
+    #render_chat_history()    
+
+
+
 
     # --- Add-on quick flow (extended with Pay Later) -------------------------
     if st.session_state.get("pending_addon_request"):
@@ -528,6 +703,7 @@ with st.container():
             if addon_url:
                 st.success("🧾 Add-on payment link generated.")
                 st.markdown(f"[💳 Pay for Add-ons]({addon_url})", unsafe_allow_html=True)
+                st.image(generate_qr_code_bytes(addon_url), width=220, caption="Scan to open add-on payment")
             else:
                 st.error("⚠️ Could not generate payment link.")
             st.session_state.pending_addon_request = []
@@ -713,38 +889,69 @@ with st.container():
                                         except Exception:
                                             pass
 
+                                        # show checkout link & QR
                                         st.success("Checkout created — complete payment to confirm booking.")
                                         st.markdown(f"[💳 Proceed to payment]({checkout_url})", unsafe_allow_html=True)
                                         st.image(generate_qr_code_bytes(checkout_url), width=240, caption="Scan to open payment on mobile")
 
-                                        # --- NEW (minimal): testing flow -> ask for ID proof right after link ---
-                                        st.info("🔒 For testing: please upload your ID proof to unlock full bot access.")
-                                        id_file = st.file_uploader("Upload ID proof (JPG/PNG/PDF)", type=["jpg","jpeg","png","pdf"], key=f"id_{booking_id}")
-                                        if id_file is not None:
-                                            # save file locally with uid + timestamp
-                                            ext = Path(id_file.name).suffix.lower() or ".bin"
-                                            save_path = UPLOAD_DIR / f"{email}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{ext}"
-                                            with open(save_path, "wb") as f:
-                                                f.write(id_file.read())
-                                            set_id_proof(email, 1)
-                                            st.session_state.user_profile["id_proof_uploaded"] = 1
-                                            st.success("✅ ID proof submitted. Full access enabled!")
-
-                                        # mark user as 'booked' (per requested testing flow)
-                                        set_booked(email, 1)
-                                        st.session_state.user_profile["booked"] = 1
+                                        # --- TESTING: require ID proof upload immediately if toggle is set ---
+                                        if TESTING_FORCE_ID_AFTER_PAYMENT:
+                                            st.info("🔒 Testing mode: please upload your ID proof now to unlock full bot access and continue.")
+                                            id_file = st.file_uploader("Upload ID proof (JPG/PNG/PDF) — required for testing", type=["jpg","jpeg","png","pdf"], key=f"id_{booking_id}")
+                                            if id_file is not None:
+                                                ext = Path(id_file.name).suffix.lower() or ".bin"
+                                                save_path = UPLOAD_DIR / f"{email}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{ext}"
+                                                with open(save_path, "wb") as f:
+                                                    f.write(id_file.read())
+                                                set_id_proof(email, 1)
+                                                st.session_state.user_profile["id_proof_uploaded"] = 1
+                                                st.success("✅ ID proof submitted. Full access enabled!")
+                                                # mark user as 'booked' for testing
+                                                set_booked(email, 1)
+                                                st.session_state.user_profile["booked"] = 1
+                                                # auto-advance: store checkout_info and clear booking_to_confirm
+                                                st.session_state.checkout_info = {
+                                                    "booking_id": booking_id,
+                                                    "room_name": r.name,
+                                                    "price": btc["price"],
+                                                    "nights": btc["nights"],
+                                                    "checkout_url": checkout_url,
+                                                    "qr_local": local_qr_path,
+                                                    "qr_public": public_qr
+                                                }
+                                                st.session_state.booking_to_confirm = None
+                                                # refresh the app so UI updates reflect new profile flags
+                                                st.experimental_rerun()
+                                            else:
+                                                st.warning("Please upload your ID proof to continue (testing).")
+                                        else:
+                                            # not forcing upload in testing, keep the existing optional behavior
+                                            st.info("🔒 For testing/demo: you can upload your ID proof here to unlock full bot access.")
+                                            id_file = st.file_uploader("Upload ID proof (JPG/PNG/PDF)", type=["jpg","jpeg","png","pdf"], key=f"idopt_{booking_id}")
+                                            if id_file is not None:
+                                                ext = Path(id_file.name).suffix.lower() or ".bin"
+                                                save_path = UPLOAD_DIR / f"{email}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{ext}"
+                                                with open(save_path, "wb") as f:
+                                                    f.write(id_file.read())
+                                                set_id_proof(email, 1)
+                                                st.session_state.user_profile["id_proof_uploaded"] = 1
+                                                st.success("✅ ID proof submitted. Full access enabled!")
+                                                # mark user as 'booked' for testing
+                                                set_booked(email, 1)
+                                                st.session_state.user_profile["booked"] = 1
+                                        # store checkout info for further viewing
+                                        st.session_state.checkout_info = {
+                                            "booking_id": booking_id,
+                                            "room_name": r.name,
+                                            "price": btc["price"],
+                                            "nights": btc["nights"],
+                                            "checkout_url": checkout_url,
+                                            "qr_local": local_qr_path,
+                                            "qr_public": public_qr
+                                        }
                                     else:
                                         st.warning("Checkout created but no public URL was returned. Check your payment gateway implementation or Stripe SDK version.")
 
-                                    st.session_state.checkout_info = {
-                                        "booking_id": booking_id,
-                                        "room_name": r.name,
-                                        "price": btc["price"],
-                                        "nights": btc["nights"],
-                                        "checkout_url": checkout_url,
-                                        "qr_local": local_qr_path,
-                                        "qr_public": public_qr
-                                    }
                                     st.session_state.booking_to_confirm = None
 
                             with col_cancel:
@@ -821,19 +1028,35 @@ with st.container():
                     if room_url:
                         st.success("✅ Room booking link generated.")
                         st.markdown(f"[💳 Pay for Room Booking]({room_url})", unsafe_allow_html=True)
+                        st.image(generate_qr_code_bytes(room_url), width=220, caption="Scan to open room payment")
                         # ask ID proof (testing)
-                        st.info("🔒 For testing: please upload your ID proof to unlock full bot access.")
-                        id_file_fb = st.file_uploader("Upload ID proof (JPG/PNG/PDF)", type=["jpg","jpeg","png","pdf"], key="id_fb")
-                        if id_file_fb is not None:
-                            ext = Path(id_file_fb.name).suffix.lower() or ".bin"
-                            save_path = UPLOAD_DIR / f"{email}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{ext}"
-                            with open(save_path, "wb") as f:
-                                f.write(id_file_fb.read())
-                            set_id_proof(email, 1)
-                            st.session_state.user_profile["id_proof_uploaded"] = 1
-                            st.success("✅ ID proof submitted. Full access enabled!")
-                        set_booked(email, 1)
-                        st.session_state.user_profile["booked"] = 1
+                        if TESTING_FORCE_ID_AFTER_PAYMENT:
+                            st.info("🔒 Testing mode: please upload your ID proof now to unlock full bot access.")
+                            id_file_fb = st.file_uploader("Upload ID proof (JPG/PNG/PDF) — required for testing", type=["jpg","jpeg","png","pdf"], key="id_fb")
+                            if id_file_fb is not None:
+                                ext = Path(id_file_fb.name).suffix.lower() or ".bin"
+                                save_path = UPLOAD_DIR / f"{email}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{ext}"
+                                with open(save_path, "wb") as f:
+                                    f.write(id_file_fb.read())
+                                set_id_proof(email, 1)
+                                st.session_state.user_profile["id_proof_uploaded"] = 1
+                                st.success("✅ ID proof submitted. Full access enabled!")
+                                set_booked(email, 1)
+                                st.session_state.user_profile["booked"] = 1
+                                st.experimental_rerun()
+                        else:
+                            st.info("🔒 For testing: please upload your ID proof to unlock full bot access.")
+                            id_file_fb = st.file_uploader("Upload ID proof (JPG/PNG/PDF)", type=["jpg","jpeg","png","pdf"], key="id_fb_opt")
+                            if id_file_fb is not None:
+                                ext = Path(id_file_fb.name).suffix.lower() or ".bin"
+                                save_path = UPLOAD_DIR / f"{email}_{datetime.now().strftime('%Y%m%d_%H%M%S')}{ext}"
+                                with open(save_path, "wb") as f:
+                                    f.write(id_file_fb.read())
+                                set_id_proof(email, 1)
+                                st.session_state.user_profile["id_proof_uploaded"] = 1
+                                st.success("✅ ID proof submitted. Full access enabled!")
+                                set_booked(email, 1)
+                                st.session_state.user_profile["booked"] = 1
                     else:
                         st.error("⚠️ Room payment link generation failed.")
 
@@ -843,6 +1066,7 @@ with st.container():
                     if addon_url:
                         st.success("🧾 Add-on payment link generated.")
                         st.markdown(f"[💳 Pay for Add-ons]({addon_url})", unsafe_allow_html=True)
+                        st.image(generate_qr_code_bytes(addon_url), width=220, caption="Scan to open add-on payment")
                     else:
                         st.error("⚠️ Add-on payment link generation failed.")
 
@@ -876,17 +1100,14 @@ with st.container():
                     else:
                         st.warning("Could not add selected add-ons (unknown keys or empty selection).")
         elif lf and not selected_keys:
-            # user opened form and submitted but there were no add-ons, or selection already cleared
             if lf.get("selected_extras"):
                 st.info("Selected add-ons already processed or none available to add to tab.")
             else:
-                # nothing selected in last submission
                 pass
 
     # --- show friendly tab items (immediate feedback) -----------------------
     if st.session_state.tab_items:
         st.markdown("### 📝 Items added to tab (local preview)")
-        # show counts
         counts = Counter(st.session_state.tab_items)
         for label, qty in counts.items():
             st.write(f"- **{label}** × {qty}")
@@ -898,7 +1119,6 @@ with st.container():
     if due_items:
         details, pending_amt = get_due_items_details(email)
         st.info(f"🧾 You have **₹{pending_amt}** pending for the following items:")
-        # display table-like breakdown
         rows = []
         for d in details:
             rows.append(f"- **{d['label']}**  × {d['qty']}  →  ₹{d['unit_price']} each  •  **₹{d['line_total']}**")
@@ -907,20 +1127,16 @@ with st.container():
         pay_col, mark_col = st.columns([2, 1])
         with pay_col:
             if st.button("💳 Pay Pending Balance"):
-                # Use the same gateway; pass aggregated due_items so pricing comes from MENU
                 due_url = create_addon_checkout_session(session_id=st.session_state.session_id, extras=due_items)
                 if due_url:
                     st.success("✅ Payment link generated for pending balance.")
                     st.markdown(f"[Pay Pending Balance]({due_url})", unsafe_allow_html=True)
                     st.image(generate_qr_code_bytes(due_url), width=220, caption="Scan to open pending payment")
-                    # For real flows: do NOT clear here. Wait for webhook.
-                    # For testing/demo we provide a manual clear option below.
                 else:
                     st.error("⚠️ Could not generate payment link for pending balance.")
         with mark_col:
             if st.button("✔️ Mark pending as paid (testing)", key="mark_paid_test"):
                 clear_due_items(email)
-                # clear local preview as well
                 st.session_state.tab_items = []
                 st.success("✅ Pending items cleared (testing).")
     else:
